@@ -8,9 +8,42 @@
 import SwiftUI
 import GoogleSignIn
 import GoogleSignInSwift
+import FirebaseAuth
+
+struct GoogleSignInResultModel {
+    let idToken: String
+    let accessToken: String
+}
+
+@MainActor
+final class AuthenticationViewModel: ObservableObject {
+    
+    
+    func signInGoogle() async throws {
+        guard let topVC = Utilities.shared.topViewController() else {
+            throw NSError(domain: "", code: 0, userInfo: nil)
+        }
+        
+        
+        
+        let gidSignInResult = try await GIDSignIn.sharedInstance.signIn(withPresenting: topVC)
+        
+        guard let idToken = gidSignInResult.user.idToken?.tokenString else {
+            throw NSError(domain: "", code: 0, userInfo: nil)
+        }
+        let accessToken = gidSignInResult.user.accessToken.tokenString
+        
+        let tokens = GoogleSignInResultModel(idToken: idToken, accessToken: accessToken)
+        try await AuthenticationManager.shared.signInWithGoogle(tokens: tokens)
+        
+
+    }
+}
+
 
 struct AuthenticationView: View {
     
+    @StateObject private var viewModel = AuthenticationViewModel()
     @Binding var showSignInView: Bool
     
     var body: some View {
@@ -41,6 +74,14 @@ struct AuthenticationView: View {
             .padding(.top, 10) // Space between the label and button
             
             GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .light, style: .wide, state: .normal)) {
+                Task {
+                    do {
+                        try await viewModel.signInGoogle()
+                        showSignInView = false
+                    } catch {
+                        print("Error signing in: \(error.localizedDescription)")
+                    }
+                }
                 
             }
             .padding(.top, 20) // Space between the button and Google button
