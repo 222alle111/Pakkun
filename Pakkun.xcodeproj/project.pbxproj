@@ -16,6 +16,11 @@
 		4A91775E2D42BA100034321A /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177572D42BA100034321A /* SettingView.swift */; };
 		4A91775F2D42BA100034321A /* SignInEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177582D42BA100034321A /* SignInEmailView.swift */; };
 		4A9177662D42C5560034321A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177652D42C5560034321A /* Utilities.swift */; };
+		4A9177792D4322700034321A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177782D4322700034321A /* ProfileView.swift */; };
+		4A91777B2D4322BB0034321A /* CreatePetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A91777A2D4322BB0034321A /* CreatePetView.swift */; };
+		4A91777D2D4322E50034321A /* HealthInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A91777C2D4322E50034321A /* HealthInfoView.swift */; };
+		4A9177812D4324120034321A /* RegisterUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177802D4324120034321A /* RegisterUser.swift */; };
+		4A9177832D4343F70034321A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177822D4343F70034321A /* HeaderView.swift */; };
 		4AC3562C2D409529004EC58A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4AC3562B2D409529004EC58A /* FirebaseAnalytics */; };
 		4AC3562E2D409529004EC58A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4AC3562D2D409529004EC58A /* FirebaseAuth */; };
 		4AC356302D409529004EC58A /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4AC3562F2D409529004EC58A /* FirebaseCore */; };
@@ -54,6 +59,11 @@
 		4A9177572D42BA100034321A /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		4A9177582D42BA100034321A /* SignInEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailView.swift; sourceTree = "<group>"; };
 		4A9177652D42C5560034321A /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		4A9177782D4322700034321A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		4A91777A2D4322BB0034321A /* CreatePetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePetView.swift; sourceTree = "<group>"; };
+		4A91777C2D4322E50034321A /* HealthInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthInfoView.swift; sourceTree = "<group>"; };
+		4A9177802D4324120034321A /* RegisterUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUser.swift; sourceTree = "<group>"; };
+		4A9177822D4343F70034321A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		4AC355F72D408151004EC58A /* Pakkun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pakkun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AC356072D408157004EC58A /* PakkunTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PakkunTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AC356112D408157004EC58A /* PakkunUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PakkunUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,6 +147,25 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		4A9177752D4321780034321A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4A9177782D4322700034321A /* ProfileView.swift */,
+				4A91777A2D4322BB0034321A /* CreatePetView.swift */,
+				4A91777C2D4322E50034321A /* HealthInfoView.swift */,
+				4A9177822D4343F70034321A /* HeaderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4A91777E2D4323D10034321A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4A9177802D4324120034321A /* RegisterUser.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		4AC355EE2D408151004EC58A = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +197,8 @@
 		4AC356462D418181004EC58A /* Pakkun */ = {
 			isa = PBXGroup;
 			children = (
+				4A91777E2D4323D10034321A /* Models */,
+				4A9177752D4321780034321A /* Views */,
 				4A9177602D42BA4C0034321A /* Utilities */,
 				4A91775A2D42BA100034321A /* New Group */,
 				4AC356412D418181004EC58A /* Preview Content */,
@@ -337,13 +368,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AC3564A2D418181004EC58A /* PakkunApp.swift in Sources */,
+				4A9177792D4322700034321A /* ProfileView.swift in Sources */,
 				4AC3564C2D418181004EC58A /* ContentView.swift in Sources */,
 				4A91775B2D42BA100034321A /* AuthenticationManager.swift in Sources */,
+				4A91777D2D4322E50034321A /* HealthInfoView.swift in Sources */,
 				4A91775C2D42BA100034321A /* AuthenticationView.swift in Sources */,
 				4A91775D2D42BA100034321A /* RootView.swift in Sources */,
+				4A91777B2D4322BB0034321A /* CreatePetView.swift in Sources */,
+				4A9177812D4324120034321A /* RegisterUser.swift in Sources */,
 				4A91775E2D42BA100034321A /* SettingView.swift in Sources */,
 				4A9177662D42C5560034321A /* Utilities.swift in Sources */,
 				4A91775F2D42BA100034321A /* SignInEmailView.swift in Sources */,
+				4A9177832D4343F70034321A /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

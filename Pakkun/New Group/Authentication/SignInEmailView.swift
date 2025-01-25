@@ -31,65 +31,67 @@ final class SignInEmailViewModel: ObservableObject {
         try await AuthenticationManager.shared.signInUser(email: email, password: password)
         }
     }
-    
-    struct SignInEmailView: View {
-        //Initialize it
-        @StateObject private var viewModel = SignInEmailViewModel()
-        @Binding var showSignInView: Bool
-        
-        var body: some View {
-            VStack {
-                TextField("Email....", text: $viewModel.email)
-                    .padding()
-                    .background(Color.platinum)
-                    .cornerRadius(30)
-                
-                SecureField("Password....", text: $viewModel.password)
-                    .padding()
-                    .background(Color.platinum)
-                    .cornerRadius(30)
-                
-                Button {
-                    Task {
-                        do {
-                            try await viewModel.signUp()
-                            showSignInView = false // if this is successfully, it will dismiss view and return out of this func.
-                            return
-                        } catch {
-                            print(error)
-                        }
-                        
-                        do {
-                            try await viewModel.signIn()
-                            showSignInView = false
-                            return
-                        } catch {
-                            print(error)
-                        }
+
+struct SignInEmailView: View {
+    @StateObject private var viewModel = SignInEmailViewModel()
+    @Binding var showSignInView: Bool
+    @State private var navigateToProfile = false // Add state for navigation
+
+    var body: some View {
+        VStack {
+            TextField("Email....", text: $viewModel.email)
+                .padding()
+                .background(Color.platinum)
+                .cornerRadius(30)
+                .autocapitalization(.none)
+                .autocorrectionDisabled()
+
+            SecureField("Password....", text: $viewModel.password)
+                .padding()
+                .background(Color.platinum)
+                .cornerRadius(30)
+
+            Button {
+                Task {
+                    do {
+                        try await viewModel.signUp()
+                        navigateToProfile = true // Trigger navigation if sign-up succeeds
+                    } catch {
+                        print("Sign-up error: \(error)")
                     }
-                    
-                } label: {
-                    Text("Sign My Pet In")
-                        .font(.headline)
-                        .foregroundColor(.black)
-                        .frame(height: 35)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.platinum)
-                        .cornerRadius(15)
+
+                    do {
+                        try await viewModel.signIn()
+                        navigateToProfile = true // Trigger navigation if sign-in succeeds
+                    } catch {
+                        print("Sign-in error: \(error)")
+                    }
                 }
-                Spacer()
+            } label: {
+                Text("Sign My Pet In")
+                    .font(.headline)
+                    .foregroundColor(.black)
+                    .frame(height: 35)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.platinum)
+                    .cornerRadius(15)
             }
-            .padding()
-            .navigationTitle("Sign In With Email")
-            .background(Color.paleHazel)
+            Spacer()
+        }
+        .padding()
+        .navigationTitle("Sign In With Email")
+        .background(Color.paleHazel)
+        .navigationDestination(isPresented: $navigateToProfile) {
+            ProfileView() // Navigate to ProfileView when `navigateToProfile` is true
         }
     }
+}
     
-    struct SignInEmailView_Previews: PreviewProvider {
-        static var previews: some View {
-            NavigationStack {
-                SignInEmailView(showSignInView: .constant(false))
-            }
+struct SignInEmailView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationStack {
+            SignInEmailView(showSignInView: .constant(false))
         }
     }
+}
 

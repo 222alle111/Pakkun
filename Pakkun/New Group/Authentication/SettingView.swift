@@ -15,16 +15,6 @@ final class SettingViewModel: ObservableObject {
         try AuthenticationManager.shared.signOut()
     }
     
-    func resetPassword() async throws {
-        let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
-        
-        guard let email = authUser.email else {
-            throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Email not found"])
-        }
-        
-       try await AuthenticationManager.shared.resetPassword(email: email)
-    }
-    
     func updatePassword() async throws {
         let passsword = "Hello123"
         try await AuthenticationManager.shared.updatePassword(password: passsword)
@@ -37,43 +27,39 @@ struct SettingView: View {
     @Binding var showSignInView: Bool
     
     var body: some View {
-        List {
-            Button("Logout") {
-                Task {
-                    do {
-                        try viewModel.signOut()
-                        showSignInView = true
-                        
-                    } catch{
-                        print("Error: \(error)")
-                    }
-                }
-            }
+        ZStack {
+            // Background color for the entire view
+            Color.paleHazel
+                .ignoresSafeArea() // Ensures the background extends to safe areas
             
-            Button("Forgot password") {
-                Task {
-                    do {
-                        try await viewModel.resetPassword()
-                        print("Password reset successful")
-                    } catch {
-                        print("Failed to reset password: \(error.localizedDescription)")
+            // Content of the settings screen
+            List {
+                Button("Logout") {
+                    Task {
+                        do {
+                            try viewModel.signOut()
+                            showSignInView = true
+                        } catch {
+                            print("Error: \(error)")
+                        }
                     }
                 }
                 
-            }
-            Button("Update password") {
-                Task {
-                    do {
-                        try await viewModel.updatePassword()
-                        print("Password updated successfully!")
-                    } catch {
-                        print("Failed to update password: \(error.localizedDescription)")
+                Button("Update password") {
+                    Task {
+                        do {
+                            try await viewModel.updatePassword()
+                            print("Password updated successfully!")
+                        } catch {
+                            print("Failed to update password: \(error.localizedDescription)")
+                        }
                     }
                 }
             }
+            .scrollContentBackground(.hidden) // removes the default background  color of the List
+            .background(Color.paleHazel) // Explicitly set the List background
         }
-        .navigationTitle("Settings") //might have to create vstack
-        .background(Color.paleHazel)
+        .navigationTitle("Settings")
     }
 }
 
