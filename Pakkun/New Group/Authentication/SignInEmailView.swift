@@ -15,7 +15,7 @@ final class SignInEmailViewModel: ObservableObject {
     
     func signUp() async throws {
         guard !email.isEmpty, !password.isEmpty else {
-            print("No email or password found.")
+//            print("No email or password found.")
             return
         }
         
