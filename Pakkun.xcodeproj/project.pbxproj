@@ -23,6 +23,7 @@
 		4A9177832D4343F70034321A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177822D4343F70034321A /* HeaderView.swift */; };
 		4A9177872D44A5CD0034321A /* PetMedicalHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177862D44A5CD0034321A /* PetMedicalHistoryView.swift */; };
 		4A9177892D44A60B0034321A /* WelcomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177882D44A60B0034321A /* WelcomePageView.swift */; };
+		4AA37C202D4836F900E3A334 /* CreatePetUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA37C1F2D4836ED00E3A334 /* CreatePetUserModel.swift */; };
 		4AC3562C2D409529004EC58A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4AC3562B2D409529004EC58A /* FirebaseAnalytics */; };
 		4AC3562E2D409529004EC58A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4AC3562D2D409529004EC58A /* FirebaseAuth */; };
 		4AC356302D409529004EC58A /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4AC3562F2D409529004EC58A /* FirebaseCore */; };
@@ -68,6 +69,7 @@
 		4A9177822D4343F70034321A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		4A9177862D44A5CD0034321A /* PetMedicalHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetMedicalHistoryView.swift; sourceTree = "<group>"; };
 		4A9177882D44A60B0034321A /* WelcomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePageView.swift; sourceTree = "<group>"; };
+		4AA37C1F2D4836ED00E3A334 /* CreatePetUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePetUserModel.swift; sourceTree = "<group>"; };
 		4AC355F72D408151004EC58A /* Pakkun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pakkun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AC356072D408157004EC58A /* PakkunTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PakkunTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AC356112D408157004EC58A /* PakkunUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PakkunUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,6 +174,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		4AA37C1D2D4836A400E3A334 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				4AA37C1F2D4836ED00E3A334 /* CreatePetUserModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		4AC355EE2D408151004EC58A = {
 			isa = PBXGroup;
 			children = (
@@ -203,6 +213,7 @@
 		4AC356462D418181004EC58A /* Pakkun */ = {
 			isa = PBXGroup;
 			children = (
+				4AA37C1D2D4836A400E3A334 /* ViewModels */,
 				4A91777E2D4323D10034321A /* Models */,
 				4A9177752D4321780034321A /* Views */,
 				4A9177602D42BA4C0034321A /* Utilities */,
@@ -373,6 +384,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AA37C202D4836F900E3A334 /* CreatePetUserModel.swift in Sources */,
 				4AC3564A2D418181004EC58A /* PakkunApp.swift in Sources */,
 				4A9177792D4322700034321A /* ProfileView.swift in Sources */,
 				4A9177872D44A5CD0034321A /* PetMedicalHistoryView.swift in Sources */,

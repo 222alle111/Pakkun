@@ -11,12 +11,10 @@ import FirebaseAuth
 struct AuthDataResultModel {
     let uid: String
     let email: String?
-    let photoURL: String?
-    
-    init(user: User) {
-        self.uid = user.uid
-        self.email = user.email
-        self.photoURL = user.photoURL?.absoluteString
+
+    init(firebaseUser: FirebaseAuth.User) {
+        self.uid = firebaseUser.uid
+        self.email = firebaseUser.email
     }
 }
 
@@ -27,10 +25,10 @@ final class AuthenticationManager {
     
     //this func gets a user that's already authenticated
     func getAuthenticatedUser() throws -> AuthDataResultModel {
-        guard let user = Auth.auth().currentUser else {
+        guard let firebaseUser = Auth.auth().currentUser else {
             throw URLError(.badServerResponse)
         }
-        return AuthDataResultModel(user: user)
+        return AuthDataResultModel(firebaseUser: firebaseUser)
     }
     func signOut() throws { // its synchronous so it's not async, its going to sign out locally we cont need to ping the server it happens immediately. If it doesn't throw an error, mean they successfully signed out.
         try Auth.auth().signOut()
@@ -43,13 +41,13 @@ final class AuthenticationManager {
         @discardableResult // meaning theres a result value coming from here but might not always use it
         func createUser(email: String, password: String) async throws -> AuthDataResultModel {
             let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
-            return AuthDataResultModel(user: authDataResult.user)
+            return AuthDataResultModel(firebaseUser: authDataResult.user)
         }
         
         @discardableResult
         func signInUser(email: String, password: String) async throws -> AuthDataResultModel {
             let authDataResult = try await Auth.auth().signIn(withEmail: email, password: password)
-            return AuthDataResultModel(user: authDataResult.user)
+            return AuthDataResultModel(firebaseUser: authDataResult.user)
         }
         
         func resetPassword(email: String) async throws {
@@ -77,7 +75,7 @@ extension AuthenticationManager {
         
         func signIn(credential: AuthCredential) async throws -> AuthDataResultModel {
             let authDataResult = try await Auth.auth().signIn(with: credential)
-            return AuthDataResultModel(user: authDataResult.user)
+            return AuthDataResultModel(firebaseUser: authDataResult.user)
         }
     }
 

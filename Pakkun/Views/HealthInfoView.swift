@@ -14,12 +14,13 @@ struct HealthInfoView: View {
     @State private var walkTimes = ""
     @State private var walkDuration = ""
     @State private var selectedWeight = ""
-    @State private var navigateToCreatePet = false
+//    @State private var navigateToCreatePet = false
     @State private var navigateToRegisterPetMedical = false
+//    @Environment(\.dismiss) var dismiss // To dismiss and go back
     
     let name: String
         
-    let weightOptions = ["5 lbs", "10 lbs", "12 lbs"]
+    let weightOptions = ["5 lbs", "10 lbs", "12 lbs", "15 lbs", "20 lbs", "22 lbs", "25 lbs", "26 lbs", "27 lbs"]
     
     var body: some View {
         ZStack {
@@ -132,15 +133,23 @@ struct HealthInfoView: View {
                 
                 // Navigation Buttons
                 HStack {
-                    Button(action: {
-                        navigateToCreatePet = true
-                    }) {
+                    NavigationLink(destination: CreatePetView()) {
                         Text("Back")
                             .font(.headline)
                             .foregroundColor(.black)
                             .frame(maxWidth: .infinity, minHeight: 44)
                             .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                     }
+//                    Button(action: {
+//                        dismiss()
+////                        navigateToCreatePet = true
+//                    }) {
+//                        Text("Back")
+//                            .font(.headline)
+//                            .foregroundColor(.black)
+//                            .frame(maxWidth: .infinity, minHeight: 44)
+//                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
+//                    }
                     Button(action: {
                         // Save and navigate
                         navigateToRegisterPetMedical = true
@@ -156,9 +165,9 @@ struct HealthInfoView: View {
                 .padding(.top, 20)
             }
         }
-        .navigationDestination(isPresented: $navigateToCreatePet) {
-                CreatePetView()
-        }
+//        .navigationDestination(isPresented: $navigateToCreatePet) {
+//                CreatePetView()
+//        }
         .navigationDestination(isPresented: $navigateToRegisterPetMedical) {
             PetMedicalHistoryView()
         }
