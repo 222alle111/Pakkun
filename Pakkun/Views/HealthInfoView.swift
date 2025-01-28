@@ -6,14 +6,16 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct HealthInfoView: View {
-    @State private var foodBrand = ""
-    @State private var foodAmount = ""
-    @State private var timesPerDay = ""
-    @State private var walkTimes = ""
-    @State private var walkDuration = ""
-    @State private var selectedWeight = ""
+    @StateObject var viewModel = CreatePetUserModel()
+//    @State private var foodBrand = ""
+//    @State private var foodAmount = ""
+//    @State private var timesPerDay = ""
+//    @State private var walkTimes = ""
+//    @State private var walkDuration = ""
+//    @State private var selectedWeight = ""
 //    @State private var navigateToCreatePet = false
     @State private var navigateToRegisterPetMedical = false
 //    @Environment(\.dismiss) var dismiss // To dismiss and go back
@@ -68,7 +70,7 @@ struct HealthInfoView: View {
                         Text("Food Brand")
                             .font(.subheadline)
                             .foregroundColor(.black)
-                        TextField("e.g., Oxbow Essentials", text: $foodBrand)
+                        TextField("e.g., Oxbow Essentials", text: $viewModel.foodBrand)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .frame(maxWidth: .infinity)
                             .lineLimit(nil)
@@ -78,7 +80,7 @@ struct HealthInfoView: View {
                         Text("Food Amount Eaten Per Meal")
                             .font(.subheadline)
                             .foregroundColor(.black)
-                        TextField("e.g., 1/8 cups", text: $foodAmount)
+                        TextField("e.g., 1/8 cups", text: $viewModel.foodAmount)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .frame(maxWidth: .infinity)
                             .lineLimit(nil)
@@ -88,7 +90,7 @@ struct HealthInfoView: View {
                         Text("How Many Times Per Day")
                             .font(.subheadline)
                             .foregroundColor(.black)
-                        TextField("e.g., 3x a day", text: $timesPerDay)
+                        TextField("e.g., 3x a day", text: $viewModel.timesPerDay)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .frame(maxWidth: .infinity)
                             .lineLimit(nil)
@@ -98,7 +100,7 @@ struct HealthInfoView: View {
                         Text("How many times a day you walk your pet?")
                             .font(.subheadline)
                             .foregroundColor(.black)
-                        TextField("e.g., 2", text: $walkTimes)
+                        TextField("e.g., 2", text: $viewModel.walkTimes)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .frame(maxWidth: .infinity)
                             .lineLimit(nil)
@@ -108,7 +110,7 @@ struct HealthInfoView: View {
                         Text("For how long? (e.g., 30 mins)")
                             .font(.subheadline)
                             .foregroundColor(.black)
-                        TextField("e.g., 30 mins", text: $walkDuration)
+                        TextField("e.g., 30 mins", text: $viewModel.walkDuration)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .frame(maxWidth: .infinity)
                             .lineLimit(nil)
@@ -118,7 +120,7 @@ struct HealthInfoView: View {
                         Text("How much does your pet weigh?")
                             .font(.subheadline)
                             .foregroundColor(.black)
-                        Picker("Select Weight", selection: $selectedWeight) {
+                        Picker("Select Weight", selection: $viewModel.selectedWeight) {
                             ForEach(weightOptions, id: \.self) { weight in
                                 Text(weight)
                             }
@@ -171,8 +173,10 @@ struct HealthInfoView: View {
         .navigationDestination(isPresented: $navigateToRegisterPetMedical) {
             PetMedicalHistoryView()
         }
+        
     }
 }
+
 
     //#Preview {
     //    HealthInfoView()

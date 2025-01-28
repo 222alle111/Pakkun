@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct PetMedicalHistoryView: View {
+    @StateObject var viewModel = CreatePetUserModel()
+    @State private var navigateToWelcomePage = false
     
-    @State private var vetVisitDate: [String] = [] // Store multiple vet visit dates
-    @State private var vaccinationDate: [String] = [] // Store multiple vaccination dates
-    @State private var medications: [String] = [] // Store medications directly
+    //    @State private var vetVisitDate: [String] = [] // Store multiple vet visit dates
+    //    @State private var vaccinationDate: [String] = [] // Store multiple vaccination dates
+    //    @State private var medications: [String] = [] // Store medications directly
     @Environment(\.dismiss) var dismiss // To dismiss and go back
     
     var body: some View {
@@ -27,80 +29,84 @@ struct PetMedicalHistoryView: View {
                         .font(.title3)
                         .fontWeight(.medium)
                         .padding()
-
+                    
                     // Vet Visits Section
                     VStack(alignment: .leading, spacing: 10) {
                         SectionHeader(title: "Vet Visits", action: {
-                            vetVisitDate.append("") // Add a new empty date field
+                            viewModel.vetVisitDate.append("") // Add a new empty date field
                         })
-                        ForEach(vetVisitDate.indices, id: \.self) { index in
-                            TextField("Enter Vet Visit Date", text: $vetVisitDate[index])
+                        ForEach(viewModel.vetVisitDate.indices, id: \.self) { index in
+                            TextField("Enter Vet Visit Date", text: $viewModel.vetVisitDate[index])
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                         }
                     }
-
+                    
                     // Vaccinations Section
                     VStack(alignment: .leading, spacing: 10) {
                         SectionHeader(title: "Vaccinations", action: {
-                            vaccinationDate.append("") // Add a new empty date field
+                            viewModel.vaccinationDate.append("") // Add a new empty date field
                         })
-                        ForEach(vaccinationDate.indices, id: \.self) { index in
-                            TextField("Enter Vaccination Date", text: $vaccinationDate[index])
+                        ForEach(viewModel.vaccinationDate.indices, id: \.self) { index in
+                            TextField("Enter Vaccination Date", text: $viewModel.vaccinationDate[index])
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                         }
                     }
-
+                    
                     // Medications Section
                     VStack(alignment: .leading, spacing: 10) {
                         SectionHeader(title: "Medications", action: {
-                            medications.append("") // Add a new empty medication field
+                            viewModel.medications.append("") // Add a new empty medication field
                         })
-                        ForEach(medications.indices, id: \.self) { index in
-                            TextField("Enter Medication", text: $medications[index])
+                        ForEach(viewModel.medications.indices, id: \.self) { index in
+                            TextField("Enter Medication", text: $viewModel.medications[index])
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                         }
                     }
-
+                    
                     // Buttons
                     HStack {
                         Button("Back") {
                             dismiss() // This dismisses the current view and goes back
                         }
                         .buttonStyle(.bordered)
-//                        .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
-
+                        //                        .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
+                        
                         Spacer()
-
+                        
                         Button("Done") {
-                            // Handle done action (optional)
+                            //add pet successfully register here
+                            // connect welcome page view
+                            navigateToWelcomePage = true
                         }
                         .buttonStyle(.bordered)
-//                        .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
+                        //                        .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                     }
                     .padding()
                 }
                 .padding()
             }
+            .navigationDestination(isPresented: $navigateToWelcomePage) {
+                WelcomePageView()
+            }
         }
     }
-}
-
-// Section Header with Title and "+" Button
-struct SectionHeader: View {
-    let title: String
-    let action: () -> Void
     
-    var body: some View {
-        HStack {
-            Text(title)
-                .font(.headline)
-                .foregroundColor(.black)
-            Spacer()
-            Button(action: action) {
-                Image(systemName: "plus")
+    struct SectionHeader: View {
+        let title: String
+        let action: () -> Void
+        
+        var body: some View {
+            HStack {
+                Text(title)
+                    .font(.headline)
                     .foregroundColor(.black)
-                    .padding(8)
-                    .background(Circle().fill(Color.gray.opacity(0.2)))
+                Spacer()
+                Button(action: action) {
+                    Image(systemName: "plus")
+                        .foregroundColor(.black)
+                        .padding(8)
+                        .background(Circle().fill(Color.gray.opacity(0.2)))
+                }
             }
         }
     }

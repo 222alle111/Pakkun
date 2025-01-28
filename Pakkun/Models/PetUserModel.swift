@@ -17,6 +17,7 @@ struct Pet: Codable, Identifiable {
     var breed: String
     var ownerName: String
     var healthInfo: HealthInfo
+    var medicalHistory: PetMedicalHistory
 }
 
 struct HealthInfo: Codable {
@@ -27,7 +28,7 @@ struct HealthInfo: Codable {
     var walkDuration: String
     var weight: String
 }
-struct PetMedicalHistory: Codable, Identifiable {
+struct PetMedicalHistory: Codable {
     var id: String // Firestore document ID
     var petId: String // The ID of the pet
     var vetVisitDates: [String]
