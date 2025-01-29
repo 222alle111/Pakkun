@@ -38,11 +38,26 @@ struct UserRegisterPageView: View {
                               title: "Password",
                               placeholder: "Enter your password",
                               isSecureField: true)
-                    
-                    InputView(text: $confirmPassword,
-                              title: "Confirm Password",
-                              placeholder: "Confirm your password",
-                              isSecureField: true)
+                    ZStack(alignment: .trailing) {
+                        InputView(text: $confirmPassword,
+                                  title: "Confirm Password",
+                                  placeholder: "Confirm your password",
+                                  isSecureField: true)
+                        
+                        if !password.isEmpty && !confirmPassword.isEmpty {
+                            if password == confirmPassword {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .imageScale(.large)
+                                    .foregroundColor(.green)
+                                    .fontWeight(.bold)
+                            } else {
+                                Image(systemName: "xmark.circle.fill")
+                                    .imageScale(.large)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.red)
+                            }
+                        }
+                    }
                 }
                 .padding(.horizontal)
                 .padding(.top, 12)
@@ -70,6 +85,8 @@ struct UserRegisterPageView: View {
                     .frame(width: UIScreen.main.bounds.width - 32, height: 48)
                 }
                 .background(Color(.platinum))
+                .disabled(!formIsValid)
+                .opacity(formIsValid ? 1.0 : 0.5)
                 .cornerRadius(10)
                 .padding(.bottom, 16) // Adjust padding for bottom space
                 
@@ -87,6 +104,17 @@ struct UserRegisterPageView: View {
                 .padding(.bottom, 32) // Additional padding to ensure spacing from screen bottom
             }
         }
+    }
+}
+// MARK: AuthenticationFormProtocol
+extension UserRegisterPageView: AuthenticationFormProtocol {
+    var formIsValid: Bool {
+        return !email.isEmpty
+        && email.contains( "@" )
+        && !password.isEmpty
+        && password.count >= 6
+        && confirmPassword == password
+        && !fullname.isEmpty
     }
 }
 

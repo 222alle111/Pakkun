@@ -57,6 +57,8 @@ struct HomePageView: View {
                         .frame(height: 35)
                     }
                     .background(Color(.platinum))
+                    .disabled(!formIsValid)
+                    .opacity(formIsValid ? 1.0 : 0.5)
                     .cornerRadius(20)
                     .padding(.top, 24)
                     
@@ -82,24 +84,15 @@ struct HomePageView: View {
         }
     }
 }
-
-//                NavigationLink(destination: UserRegisterPageView()
-//                    .environmentObject(viewModel)
-//                    .navigationBarBackButtonHidden(true)
-//                    ) {
-//                    Text("Create a New Account")
-//                        .kerning(3)
-//                        .fontWeight(.semibold)
-//                        .font(.custom("Inter", size: 20, relativeTo: .headline))
-//                        .foregroundColor(.black)
-//                        .frame(height: 35)
-//                        .frame(maxWidth: .infinity)
-//                        .background(Color.platinum)
-//                        .cornerRadius(20)
-//                    }
-//                }
-
-
+// MARK: AuthenticationFormProtocol
+extension HomePageView: AuthenticationFormProtocol {
+    var formIsValid: Bool {
+        return !email.isEmpty
+        && email.contains( "@" )
+        && !password.isEmpty
+        && password.count >= 6
+    }
+}
 
 struct HomePageView_Previews: PreviewProvider {
     static var previews: some View {

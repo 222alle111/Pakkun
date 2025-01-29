@@ -9,6 +9,10 @@ import Foundation
 import Firebase
 import FirebaseAuth
 
+protocol AuthenticationFormProtocol {
+    var formIsValid: Bool { get }
+}
+
 @MainActor
 class AuthViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User? //going to tell us wheater or not we have a user loogged in. when we open our app it knows whether or not to route us to the login flow or profile view. firebase user object
@@ -74,14 +78,6 @@ class AuthViewModel: ObservableObject {
         
         guard let snapshot = try? await Firestore.firestore().collection("users").document(uid).getDocument() else { return }
         self.currrentUser = try? snapshot.data(as: userModel.self)
-        // Map Firestore document to User model
-//        if let firestoreUser = try? snapshot.data(as: User.self) {
-//            // Now you have the correct user object with the fullName
-//            self.currrentUser = firestoreUser
-//        }
     }
 }
-        
 //        print("Error: current user is \(self.currrentUser)")
-//    }
-//}

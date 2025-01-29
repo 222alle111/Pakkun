@@ -148,25 +148,9 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		4A54C3582D49761F00BD059A /* views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = views;
-			sourceTree = "<group>";
-		};
-		4A54C3592D49762700BD059A /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
 		4A9177592D42BA100034321A /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				4A54C3592D49762700BD059A /* ViewModels */,
-				4A54C3582D49761F00BD059A /* views */,
 				4A9177542D42BA100034321A /* AuthenticationManager.swift */,
 				4A9177552D42BA100034321A /* AV.swift */,
 				4A9177562D42BA100034321A /* RootView.swift */,
