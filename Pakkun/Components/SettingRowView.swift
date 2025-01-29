@@ -8,11 +8,27 @@
 import SwiftUI
 
 struct SettingRowView: View {
+    let imageName: String
+    let title: String
+    let tintColor: Color
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            Image(systemName: imageName)
+                .imageScale(.small)
+                .font(.title)
+                .foregroundColor(tintColor)
+            
+            Text(title)
+                .font(.subheadline)
+                .foregroundColor(.black)
+        }
     }
 }
 
-#Preview {
-    SettingRowView()
+
+struct SettingRowView_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingRowView(imageName: "heart", title: "Pet Profile", tintColor: Color(.systemPink))
+    }
 }

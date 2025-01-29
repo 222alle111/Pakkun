@@ -105,7 +105,7 @@ struct PetMedicalHistoryView: View {
                     Image(systemName: "plus")
                         .foregroundColor(.black)
                         .padding(8)
-                        .background(Circle().fill(Color.gray.opacity(0.2)))
+                        .background(Circle().fill(Color.platinum.opacity(0.2)))
                 }
             }
         }

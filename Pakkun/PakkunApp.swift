@@ -7,19 +7,23 @@
 
 import SwiftUI
 import Firebase
-import FirebaseCore
+//import FirebaseCore
 import GoogleSignIn
 
 @main
 struct PakkunApp: App {
+    @StateObject var viewModel = AuthViewModel() // Initialized it in thie one place 
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
-                RootView()
-            }
+//            NavigationStack {
+//            ContentView()
+            HomePageView()
+                .environmentObject(viewModel)
+//                RootView()
+//            }
         }
     }
 }
@@ -40,9 +44,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         return true
     }
     
-    // Handle URL callback for Google Sign-In
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        return GIDSignIn.sharedInstance.handle(url)
-    }
+//    // Handle URL callback for Google Sign-In
+//    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+//        return GIDSignIn.sharedInstance.handle(url)
+//    }
 }
-

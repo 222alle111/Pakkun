@@ -8,33 +8,39 @@
 import SwiftUI
 
 struct WelcomePageView: View {
+    @State private var navigateToDogProfileView = false
+    
     var body: some View {
         ZStack {
             // Background color
-            Color(.paleHazel)
+            Color(.blueBell)
                 .edgesIgnoringSafeArea(.all)
             
-            VStack(spacing: 20) {
+            VStack() {
                 Text("Welcome Pet's Name!")
                     .kerning(3)
                     .font(.custom("Inter", size: 30, relativeTo: .title))
                     .foregroundColor(.black)
                     .padding(.top, 20)
-//                Spacer()
+                //                Spacer()
                 
-                Image("") // replace image, add one in assets
+                Image("Pug") // replace image, add one in assets
                     .resizable()
-                    .scaledToFit()
+//                    .scaledToFit()
+                    .aspectRatio(contentMode: .fill)
                     .frame(width: 150, height: 150)
                     .clipShape(Circle())
                     .overlay(Circle().stroke(Color.black, lineWidth: 1))
+                
                 Button(action: {
-                   // navigate to main profile
+                    // navigate to main profile
+                    navigateToDogProfileView = true
+                    
                 }) {
                     Text("Take me to my pet's profile ")
                         .kerning(1)
                         .font(.custom("Inter", size: 15, relativeTo: .headline))
-//                        .font(.headline)
+                    //                        .font(.headline)
                         .foregroundColor(.black)
                         .frame(maxWidth: .infinity, minHeight: 44)
                         .background(RoundedRectangle(cornerRadius: 10).fill(Color(red: 0.95, green: 0.92, blue: 0.85)))
@@ -44,9 +50,10 @@ struct WelcomePageView: View {
             }
             .padding()
         }
-//        .navigationDestination(isPresented: $navigateToHealthInfo) {
-//            HealthInfoView(name: viewModel.name)
-
+        .navigationDestination(isPresented: $navigateToDogProfileView) {
+            DogProfileView()
+            
+        }
     }
 }
 
