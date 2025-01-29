@@ -16,24 +16,27 @@ struct CreatePetView: View {
     //    @State private var zodiac: String = ""
     //    @State private var snack: String = ""
     //    @State private var ownerName: String = ""
-    @State private var email: String = ""
-    @State private var password: String = ""
+    //    @State private var email: String = ""
+    //    @State private var password: String = ""
     @State private var navigateToHealthInfo = false
+    @Environment(\.dismiss) var dismiss
     
+    let animalBreeds: [String: [String]] = [
+        "Dog": ["Beagle", "Chihuahua", "Pug", "French Bulldog", "Golden Retriever"],
+        "Cat": ["Persian", "Siamese", "Maine Coon", "Sphynx", "Bengal"],
+        "Bird": ["Parrot", "Canary", "Cockatiel", "Finch"],
+        "Reptile": ["Iguana", "Gecko", "Snake", "Turtle"],
+        "Fish": ["Goldfish", "Betta", "Guppy", "Angelfish"],
+        "Small Pet": ["Rabbit", "Guinea Pig", "Hamster", "Ferret"]
+    ]
     
-    let animalTypes = ["Bird", "Dog", "Cat", "Reptile", "Fish", "Small Pet"]
-    //    let descent = animalTypes.sorted(by: > )
-    //    let ascent = animalTypes.sorted(by: < )
     @State private var selectedAnimal: String = "Dog"
-    
-    let breeds = ["Beagle","Chihuahua", "Pug", "French Bulldog", "Golden Retriever"]
     @State private var selectedBreed: String = "Pug"
     
     var body: some View {
         NavigationStack {
             ZStack {
-                // Background color
-                Color(.paleHazel)
+                Color(.blueBell)
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack(spacing: 20) {
@@ -56,88 +59,98 @@ struct CreatePetView: View {
                     // Form
                     VStack(spacing: 15) {
                         TextField("Name", text: $viewModel.name)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.5)))
+                            .textFieldStyle(PlainTextFieldStyle())
                         
                         TextField("Date of Birth", text: $viewModel.date)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.5)))
+                            .textFieldStyle(PlainTextFieldStyle())
                         
                         TextField("Zodiac", text: $viewModel.zodiac)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.5)))
+                            .textFieldStyle(PlainTextFieldStyle())
                         
                         TextField("Favorite Snack", text: $viewModel.snack)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.5)))
+                            .textFieldStyle(PlainTextFieldStyle())
                         
+                        // Animal & Breed Selection
                         HStack(spacing: 20) {
-                            // Dropdown for Type of Animal
                             VStack(alignment: .leading) {
                                 Text("Type of Animal")
                                     .font(.caption)
                                     .foregroundColor(.gray)
                                 Picker("Type of Animal", selection: $selectedAnimal) {
-                                    ForEach(animalTypes, id: \.self) { animal in
+                                    ForEach(animalBreeds.keys.sorted(), id: \.self) { animal in
                                         Text(animal)
                                     }
                                 }
                                 .pickerStyle(MenuPickerStyle())
-                                .frame(maxWidth: .infinity)
-                                .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
-                            }
-                            
-                            // Dropdown for Breed
-                            VStack(alignment: .leading) {
-                                Text("Breed")
-                                    .font(.caption)
-                                    .foregroundColor(.gray)
-                                Picker("Breed", selection: $selectedBreed) {
-                                    ForEach(breeds, id: \.self) { breed in
-                                        Text(breed)
-                                    }
+                                .onChange(of: selectedAnimal) {
+                                    selectedBreed = animalBreeds[selectedAnimal]?.first ?? ""
                                 }
-                                .pickerStyle(MenuPickerStyle())
                                 .frame(maxWidth: .infinity)
                                 .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                                
+                                VStack(alignment: .leading) {
+                                    Text("Breed")
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                    Picker("Breed", selection: $selectedBreed) {
+                                        ForEach(animalBreeds[selectedAnimal] ?? [], id: \.self) { breed in
+                                            Text(breed)
+                                        }
+                                    }
+                                    .pickerStyle(MenuPickerStyle())
+                                    .frame(maxWidth: .infinity)
+                                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                                }
                             }
                         }
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.5)))
                         
-                        TextField("Owner Name", text: $viewModel.ownerName)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                        
-                        TextField("Email", text: $email)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                        SecureField("Password", text: $password)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                        // auth.auth to get login/signup email
+                        // Navigation Buttons
+                        HStack(spacing: 20) {
+                            Button {
+                                dismiss()
+                            } label: {
+                                Text("Back")
+                                    .fontWeight(.semibold)
+                                    .font(.headline)
+                                    .foregroundColor(.black)
+                                    .frame(maxWidth: .infinity, minHeight: 44)
+                                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
+                            }
+                            
+                            Button {
+                                navigateToHealthInfo = true
+                            } label: {
+                                Text("Next")
+                                    .font(.headline)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.black)
+                                    .frame(maxWidth: .infinity, minHeight: 44)
+                                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
+
+                            }
+                        }
+                        .padding(.horizontal, 30)
+                        .padding(.top, 20)
                     }
                     .padding()
-                    .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.5)))
-                    //                .shadow(radius: 5)
-                    
-                    Button(action: {
-                        navigateToHealthInfo = true
-                    }) {
-                        Text("Next")
-                            .font(.headline)
-                            .foregroundColor(.black)
-                            .frame(maxWidth: .infinity, minHeight: 44)
-                            .background(RoundedRectangle(cornerRadius: 10).fill(Color(red: 0.95, green: 0.92, blue: 0.85)))
-                    }
-                    .padding(.horizontal, 30)
-                    .padding(.top, 20)
                 }
-                .padding()
+                .navigationDestination(isPresented: $navigateToHealthInfo) {
+                    HealthInfoView(name: viewModel.name)
+                }
             }
-            .navigationDestination(isPresented: $navigateToHealthInfo) {
-                HealthInfoView(name: viewModel.name)
-            }
-            //should create user in auth database
-            // create a auth of user should in auth email and username in database
-            //
         }
     }
 }
-    
-
-
     
 struct CreatePetView_Previews: PreviewProvider {
     static var previews: some View {

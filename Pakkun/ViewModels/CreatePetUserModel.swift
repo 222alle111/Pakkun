@@ -14,7 +14,7 @@ class CreatePetUserModel: ObservableObject {
     @Published var date: String = ""
     @Published var zodiac: String = ""
     @Published var snack: String = ""
-    @Published var ownerName: String = ""
+//    @Published var ownerName: String = ""
     @Published var foodBrand = ""
     @Published var foodAmount = ""
     @Published var timesPerDay = ""
@@ -42,7 +42,7 @@ class CreatePetUserModel: ObservableObject {
                     "favoriteSnack": pet.favoriteSnack,
                     "type": pet.type,
                     "breed": pet.breed,
-                    "ownerName": pet.ownerName,
+//                    "ownerName": pet.ownerName,
                     "healthInfo": [
                         "foodBrand": pet.healthInfo.foodBrand,
                         "foodAmount": pet.healthInfo.foodAmount,

@@ -16,99 +16,116 @@ struct PetMedicalHistoryView: View {
     //    @State private var medications: [String] = [] // Store medications directly
     @Environment(\.dismiss) var dismiss // To dismiss and go back
     
+    
     var body: some View {
         ZStack {
-            Color.paleHazel
+            Color.blueBell
                 .edgesIgnoringSafeArea(.all)
-            
-            // Main content
-            NavigationView {
-                VStack(spacing: 20) {
-                    // Title
-                    Text("Please Enter your Pet’s Medical History")
-                        .font(.title3)
-                        .fontWeight(.medium)
-                        .padding()
-                    
-                    // Vet Visits Section
-                    VStack(alignment: .leading, spacing: 10) {
-                        SectionHeader(title: "Vet Visits", action: {
-                            viewModel.vetVisitDate.append("") // Add a new empty date field
-                        })
-                        ForEach(viewModel.vetVisitDate.indices, id: \.self) { index in
-                            TextField("Enter Vet Visit Date", text: $viewModel.vetVisitDate[index])
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                        }
-                    }
-                    
-                    // Vaccinations Section
-                    VStack(alignment: .leading, spacing: 10) {
-                        SectionHeader(title: "Vaccinations", action: {
-                            viewModel.vaccinationDate.append("") // Add a new empty date field
-                        })
-                        ForEach(viewModel.vaccinationDate.indices, id: \.self) { index in
-                            TextField("Enter Vaccination Date", text: $viewModel.vaccinationDate[index])
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                        }
-                    }
-                    
-                    // Medications Section
-                    VStack(alignment: .leading, spacing: 10) {
-                        SectionHeader(title: "Medications", action: {
-                            viewModel.medications.append("") // Add a new empty medication field
-                        })
-                        ForEach(viewModel.medications.indices, id: \.self) { index in
-                            TextField("Enter Medication", text: $viewModel.medications[index])
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                        }
-                    }
-                    
-                    // Buttons
-                    HStack {
-                        Button("Back") {
-                            dismiss() // This dismisses the current view and goes back
-                        }
-                        .buttonStyle(.bordered)
-                        //                        .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
+
+            VStack(spacing: 20) {
+                Text("Please Enter Your Pet’s Medical History")
+                    .kerning(1)
+                    .font(.custom("Inter", size: 26, relativeTo: .title))
+                    .foregroundColor(.black)
+                    .multilineTextAlignment(.center)
+                    .padding(.top, 20)
+
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 15) {
+                        // Vet Visits Section
+                        SectionView(title: "Vet Visits", items: $viewModel.vetVisitDate, placeholder: "Enter Vet Visit Date")
                         
-                        Spacer()
+                        // Vaccinations Section
+                        SectionView(title: "Vaccinations", items: $viewModel.vaccinationDate, placeholder: "Enter Vaccination Name and Date")
                         
-                        Button("Done") {
-                            //add pet successfully register here
-                            // connect welcome page view
-                            navigateToWelcomePage = true
-                        }
-                        .buttonStyle(.bordered)
-                        //                        .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
+                        // Medications Section
+                        SectionView(title: "Medications", items: $viewModel.medications, placeholder: "Enter Medication")
                     }
-                    .padding()
+                    .padding(.horizontal)
                 }
-                .padding()
-            }
-            .navigationDestination(isPresented: $navigateToWelcomePage) {
-                WelcomePageView()
+
+                // Navigation Buttons
+                HStack {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Back")
+                            .fontWeight(.semibold)
+                            .font(.headline)
+                            .foregroundColor(.black)
+                            .frame(maxWidth: .infinity, minHeight: 44)
+                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
+                    }
+
+                    Spacer()
+
+                    Button {
+                        navigateToWelcomePage = true
+                        print("Pet Successfully recorded")
+                    } label: {
+                        Text("Done")
+                            .fontWeight(.semibold)
+                            .font(.headline)
+                            .foregroundColor(.black)
+                            .frame(maxWidth: .infinity, minHeight: 44)
+                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
+                    }
+                }
+                .padding(.horizontal, 30)
+                .padding(.bottom, 20)
             }
         }
+        .navigationDestination(isPresented: $navigateToWelcomePage) {
+            WelcomePageView()
+        }
     }
-    
-    struct SectionHeader: View {
-        let title: String
-        let action: () -> Void
-        
-        var body: some View {
+}
+
+// MARK: - Section View (With Delete Option)
+struct SectionView: View {
+    let title: String
+    @Binding var items: [String]
+    let placeholder: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Text(title)
                     .font(.headline)
                     .foregroundColor(.black)
                 Spacer()
-                Button(action: action) {
+                Button(action: {
+                    items.append("") // Add new field
+                }) {
                     Image(systemName: "plus")
                         .foregroundColor(.black)
                         .padding(8)
                         .background(Circle().fill(Color.platinum.opacity(0.2)))
                 }
             }
+
+            ForEach(items.indices, id: \.self) { index in
+                HStack {
+                    TextField(placeholder, text: $items[index])
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(5)
+                        .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
+                    
+                    // DELETE BUTTON ("-")
+                    if items.count > 1 { // Prevent deleting the last remaining item
+                        Button(action: {
+                            items.remove(at: index) // Remove the selected entry
+                        }) {
+                            Image(systemName: "minus.circle.fill")
+                                .foregroundColor(.pink)
+                        }
+                        .padding(.leading, 5)
+                    }
+                }
+            }
         }
+        .padding()
+        .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.2)))
     }
 }
 

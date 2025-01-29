@@ -95,7 +95,7 @@ struct UserRegisterPageView: View {
                     dismiss()
                 } label: {
                     HStack(spacing: 3) {
-                        Text("Already have an account")
+                        Text("Already have an account?")
                         Text("Sign in")
                             .fontWeight(.semibold)
                     }

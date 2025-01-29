@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-struct DogProfileView: View {
+struct PetProfileView: View {
 //    @State private var navigateToSettingView = false
     
     var body: some View {
@@ -63,8 +63,8 @@ struct DogProfileView: View {
                 // **Centered Button Grid**
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
                     FeatureButton(icon: "pawprint", label: "Track Activity")
-                    FeatureButton(icon: "heart.text.square", label: "Medical History")
-                    FeatureButton(icon: "cup.and.saucer", label: "Food Logs")
+                    FeatureButton(icon: "stethoscope", label: "Medical History")
+                    FeatureButton(icon: "carrot", label: "Food Logs")
                     FeatureButton(icon: "person.3", label: "Play with Friends")
                 }
                 .padding(.bottom, 40) // Moves it lower
@@ -85,6 +85,7 @@ struct FeatureButton: View {
     
     var body: some View {
         Button(action: {
+            // takes you to user profile view
             print("\(label) tapped")
         }) {
             VStack {
@@ -98,8 +99,8 @@ struct FeatureButton: View {
         }
     }
 }
-struct DogProfileView_Previews: PreviewProvider {
+struct PetProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        DogProfileView()
+        PetProfileView()
     }
 }

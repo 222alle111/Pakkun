@@ -15,7 +15,6 @@ struct Pet: Codable, Identifiable {
     var favoriteSnack: String
     var type: String
     var breed: String
-    var ownerName: String
     var healthInfo: HealthInfo
     var medicalHistory: PetMedicalHistory
 }

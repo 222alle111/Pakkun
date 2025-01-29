@@ -18,16 +18,17 @@ struct HealthInfoView: View {
 //    @State private var selectedWeight = ""
 //    @State private var navigateToCreatePet = false
     @State private var navigateToRegisterPetMedical = false
-//    @Environment(\.dismiss) var dismiss // To dismiss and go back
+//    @State private var navigateToCreatePet = false
+    @Environment(\.dismiss) var dismiss
     
     let name: String
         
-    let weightOptions = ["5 lbs", "10 lbs", "12 lbs", "15 lbs", "20 lbs", "22 lbs", "25 lbs", "26 lbs", "27 lbs"]
+    let weightOptions = ["5 lbs", "10 lbs", "11 lbs", "12 lbs", "13 lbs" ,"15 lbs", "20 lbs", "22 lbs", "23 lbs", "24 lbs", "25 lbs", "26 lbs", "27 lbs", "28 lbs", "29 lbs", "30 lbs"]
     
     var body: some View {
         ZStack {
             // Background color
-            Color(.paleHazel)
+            Color(.blueBell)
                 .edgesIgnoringSafeArea(.all)
             
             VStack(spacing: 20) {
@@ -52,17 +53,11 @@ struct HealthInfoView: View {
                 
                 Text("Please log your pet’s activities, food log, and medical visits.")
                     .kerning(1)
-                    .font(.custom("Inter", size: 14, relativeTo: .body))
+                    .font(.custom("Inter", size: 16, relativeTo: .body))
                     .foregroundColor(.black)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 20)
                     .padding(.bottom, 10)
-                
-//                Text("Please fill out the Health Information for Princess:")
-//                    .kerning(1)
-//                    .font(.custom("Inter", size: 13, relativeTo: .title))
-//                    .foregroundColor(.black)
-//                    .padding(.top, 10)
                 
                 // Health Info Form
                 VStack(spacing: 15) {
@@ -70,54 +65,60 @@ struct HealthInfoView: View {
                         Text("Food Brand")
                             .font(.subheadline)
                             .foregroundColor(.black)
-                        TextField("e.g., Oxbow Essentials", text: $viewModel.foodBrand)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .frame(maxWidth: .infinity)
                             .lineLimit(nil)
+                        TextField("e.g., Oxbow Essentials", text: $viewModel.foodBrand)
+                            .padding(5)
+                            .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.5)))
+                            .textFieldStyle(PlainTextFieldStyle())
                     }
                     
                     HStack {
-                        Text("Food Amount Eaten Per Meal")
+                        Text("Food Amount")
                             .font(.subheadline)
                             .foregroundColor(.black)
-                        TextField("e.g., 1/8 cups", text: $viewModel.foodAmount)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .frame(maxWidth: .infinity)
                             .lineLimit(nil)
+                        TextField("e.g., 1/8 cups", text: $viewModel.foodAmount)
+                            .padding(5)
+                            .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.5)))
+                            .textFieldStyle(PlainTextFieldStyle())
                     }
                     
                     HStack {
                         Text("How Many Times Per Day")
                             .font(.subheadline)
                             .foregroundColor(.black)
+                            .lineLimit(nil)
                         TextField("e.g., 3x a day", text: $viewModel.timesPerDay)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .frame(maxWidth: .infinity)
-                            .lineLimit(nil)
+                            .padding(5)
+                            .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.5)))
+                            .textFieldStyle(PlainTextFieldStyle())
                     }
                     
                     HStack {
-                        Text("How many times a day you walk your pet?")
+                        Text("Walk Times Per Day?")
                             .font(.subheadline)
                             .foregroundColor(.black)
+                            .lineLimit(nil)
                         TextField("e.g., 2", text: $viewModel.walkTimes)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
                             .frame(maxWidth: .infinity)
-                            .lineLimit(nil)
+                            .padding(5)
+                            .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.5)))
+                            .textFieldStyle(PlainTextFieldStyle())
                     }
                     
                     HStack {
-                        Text("For how long? (e.g., 30 mins)")
+                        Text("For How Long?")
                             .font(.subheadline)
                             .foregroundColor(.black)
-                        TextField("e.g., 30 mins", text: $viewModel.walkDuration)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .frame(maxWidth: .infinity)
                             .lineLimit(nil)
+                        TextField("e.g., 30 mins", text: $viewModel.walkDuration)
+                            .padding(5)
+                            .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.5)))
+                            .textFieldStyle(PlainTextFieldStyle())
                     }
                     
                     VStack(alignment: .leading) {
-                        Text("How much does your pet weigh?")
+                        Text("How Much Does Your Pet Weigh?")
                             .font(.subheadline)
                             .foregroundColor(.black)
                         Picker("Select Weight", selection: $viewModel.selectedWeight) {
@@ -125,9 +126,10 @@ struct HealthInfoView: View {
                                 Text(weight)
                             }
                         }
-                        .pickerStyle(MenuPickerStyle())
-                        .frame(maxWidth: .infinity)
-                        .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                        .pickerStyle(WheelPickerStyle()) // Changes to a scrollable wheel
+                        .frame(height: 120)
+                        .clipped()
+                        .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.5)))
                     }
                 }
                 .padding()
@@ -135,29 +137,24 @@ struct HealthInfoView: View {
                 
                 // Navigation Buttons
                 HStack {
-                    NavigationLink(destination: CreatePetView()) {
+                    Button {
+//                        navigateToCreatePet = true
+                        dismiss()
+                    } label: {
                         Text("Back")
+                            .fontWeight(.semibold)
                             .font(.headline)
                             .foregroundColor(.black)
                             .frame(maxWidth: .infinity, minHeight: 44)
                             .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                     }
-//                    Button(action: {
-//                        dismiss()
-////                        navigateToCreatePet = true
-//                    }) {
-//                        Text("Back")
-//                            .font(.headline)
-//                            .foregroundColor(.black)
-//                            .frame(maxWidth: .infinity, minHeight: 44)
-//                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
-//                    }
                     Button(action: {
                         // Save and navigate
                         navigateToRegisterPetMedical = true
                     }) {
                         Text("Next")
                             .font(.headline)
+                            .fontWeight(.semibold)
                             .foregroundColor(.black)
                             .frame(maxWidth: .infinity, minHeight: 44)
                             .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
@@ -166,10 +163,10 @@ struct HealthInfoView: View {
                 .padding(.horizontal, 30)
                 .padding(.top, 20)
             }
-        }
-//        .navigationDestination(isPresented: $navigateToCreatePet) {
+//            .navigationDestination(isPresented: $navigateToCreatePet) {
 //                CreatePetView()
-//        }
+//            }
+        }
         .navigationDestination(isPresented: $navigateToRegisterPetMedical) {
             PetMedicalHistoryView()
         }
@@ -177,10 +174,6 @@ struct HealthInfoView: View {
     }
 }
 
-
-    //#Preview {
-    //    HealthInfoView()
-    //}
 struct HealthInfoView_Previews: PreviewProvider {
     static var previews: some View {
         HealthInfoView(name: "Princess")

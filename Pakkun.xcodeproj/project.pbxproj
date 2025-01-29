@@ -21,7 +21,7 @@
 		4A91775E2D42BA100034321A /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177572D42BA100034321A /* SettingView.swift */; };
 		4A91775F2D42BA100034321A /* SignInEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177582D42BA100034321A /* SignInEmailView.swift */; };
 		4A9177662D42C5560034321A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177652D42C5560034321A /* Utilities.swift */; };
-		4A9177792D4322700034321A /* DogProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177782D4322700034321A /* DogProfileView.swift */; };
+		4A9177792D4322700034321A /* PetProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177782D4322700034321A /* PetProfileView.swift */; };
 		4A91777B2D4322BB0034321A /* CreatePetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A91777A2D4322BB0034321A /* CreatePetView.swift */; };
 		4A91777D2D4322E50034321A /* HealthInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A91777C2D4322E50034321A /* HealthInfoView.swift */; };
 		4A9177812D4324120034321A /* PetUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177802D4324120034321A /* PetUserModel.swift */; };
@@ -74,7 +74,7 @@
 		4A9177572D42BA100034321A /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		4A9177582D42BA100034321A /* SignInEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailView.swift; sourceTree = "<group>"; };
 		4A9177652D42C5560034321A /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		4A9177782D4322700034321A /* DogProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogProfileView.swift; sourceTree = "<group>"; };
+		4A9177782D4322700034321A /* PetProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetProfileView.swift; sourceTree = "<group>"; };
 		4A91777A2D4322BB0034321A /* CreatePetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePetView.swift; sourceTree = "<group>"; };
 		4A91777C2D4322E50034321A /* HealthInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthInfoView.swift; sourceTree = "<group>"; };
 		4A9177802D4324120034321A /* PetUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetUserModel.swift; sourceTree = "<group>"; };
@@ -179,7 +179,7 @@
 		4A9177752D4321780034321A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4A9177782D4322700034321A /* DogProfileView.swift */,
+				4A9177782D4322700034321A /* PetProfileView.swift */,
 				4A91777A2D4322BB0034321A /* CreatePetView.swift */,
 				4A91777C2D4322E50034321A /* HealthInfoView.swift */,
 				4A9177822D4343F70034321A /* HeaderView.swift */,
@@ -417,7 +417,7 @@
 				4AC3564A2D418181004EC58A /* PakkunApp.swift in Sources */,
 				4A54C3552D496C0900BD059A /* SettingRowView.swift in Sources */,
 				4AA37C242D49424400E3A334 /* UserRegisterPageView.swift in Sources */,
-				4A9177792D4322700034321A /* DogProfileView.swift in Sources */,
+				4A9177792D4322700034321A /* PetProfileView.swift in Sources */,
 				4A9177872D44A5CD0034321A /* PetMedicalHistoryView.swift in Sources */,
 				4AC3564C2D418181004EC58A /* ContentView.swift in Sources */,
 				4AA37C222D4941B400E3A334 /* HomePageView.swift in Sources */,
