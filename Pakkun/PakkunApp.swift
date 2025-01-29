@@ -19,8 +19,8 @@ struct PakkunApp: App {
     var body: some Scene {
         WindowGroup {
 //            NavigationStack {
-//            ContentView()
-            HomePageView()
+            ContentView()
+//            HomePageView()
                 .environmentObject(viewModel)
 //                RootView()
 //            }
