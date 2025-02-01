@@ -34,9 +34,9 @@ struct PetMedicalHistory: Codable {
     var vaccinationDates: [String]
     var medications: [String]
 }
-struct User: Codable {
-    let id: String
-    var email: String
-    var pets: [Pet]
-}
+//struct User: Codable {
+//    let id: String
+//    var email: String
+//    var pets: [Pet]
+//}
 
