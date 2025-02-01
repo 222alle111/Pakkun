@@ -10,17 +10,14 @@ import FirebaseFirestore
 import Firebase
 
 struct CreatePetView: View {
-    @StateObject var viewModel = CreatePetUserModel()
-    //    @State private var name: String = ""
-    //    @State private var date: String = ""
-    //    @State private var zodiac: String = ""
-    //    @State private var snack: String = ""
-    //    @State private var ownerName: String = ""
-    //    @State private var email: String = ""
-    //    @State private var password: String = ""
-    @State private var navigateToHealthInfo = false
+    @EnvironmentObject var petViewModel: CreatePetUserModel
+    @EnvironmentObject var viewModel: AuthViewModel
     @Environment(\.dismiss) var dismiss
-    
+
+    @State private var navigateToHealthInfo = false
+    @State private var showErrorAlert = false
+    @State private var errorMessage: String = ""
+
     let animalBreeds: [String: [String]] = [
         "Dog": ["Beagle", "Chihuahua", "Pug", "French Bulldog", "Golden Retriever"],
         "Cat": ["Persian", "Siamese", "Maine Coon", "Sphynx", "Bengal"],
@@ -29,10 +26,40 @@ struct CreatePetView: View {
         "Fish": ["Goldfish", "Betta", "Guppy", "Angelfish"],
         "Small Pet": ["Rabbit", "Guinea Pig", "Hamster", "Ferret"]
     ]
+
+    // validation function
+    private func validatePet() -> Bool {
+        if petViewModel.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            errorMessage = "Name cannot be empty."
+            return false
+        }
+
+        if petViewModel.zodiac.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            errorMessage = "Zodiac sign cannot be empty."
+            return false
+        }
+
+        if petViewModel.favoriteSnack.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            errorMessage = "Favorite snack cannot be empty."
+            return false
+        }
+
+        if petViewModel.dateOfBirth > Date() {
+            errorMessage = "Date of birth must be in the past."
+            return false
+        }
+
+        return true
+    }
     
-    @State private var selectedAnimal: String = "Dog"
-    @State private var selectedBreed: String = "Pug"
-    
+    private func updateBreed(for animal: String) {
+        if let firstBreed = animalBreeds[animal]?.first {
+            petViewModel.selectedBreed = firstBreed
+        } else {
+            petViewModel.selectedBreed = ""
+        }
+    }
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -40,7 +67,6 @@ struct CreatePetView: View {
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack(spacing: 20) {
-                    // Title
                     Text("Create a Profile for your Furry Friend")
                         .kerning(2)
                         .font(.custom("Inter", size: 18, relativeTo: .title))
@@ -48,73 +74,67 @@ struct CreatePetView: View {
                         .foregroundColor(.black)
                         .padding(.top, 20)
                     
-                    // Image
-                    Image("") // replace image, add one in assets
+                    Image("Pug")
                         .resizable()
-                        .scaledToFit()
+//                        .scaledToFit()
+                        .aspectRatio(contentMode: .fill)
                         .frame(width: 150, height: 150)
                         .clipShape(Circle())
                         .overlay(Circle().stroke(Color.black, lineWidth: 1))
                     
-                    // Form
                     VStack(spacing: 15) {
-                        TextField("Name", text: $viewModel.name)
+                        TextField("Name", text: $petViewModel.name)
                             .padding()
                             .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.5)))
                             .textFieldStyle(PlainTextFieldStyle())
-                        
-                        TextField("Date of Birth", text: $viewModel.date)
+
+                        DatePicker("Date of Birth", selection: $petViewModel.dateOfBirth, displayedComponents: [.date])
                             .padding()
                             .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.5)))
-                            .textFieldStyle(PlainTextFieldStyle())
-                        
-                        TextField("Zodiac", text: $viewModel.zodiac)
+
+                        TextField("Zodiac", text: $petViewModel.zodiac)
                             .padding()
                             .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.5)))
-                            .textFieldStyle(PlainTextFieldStyle())
-                        
-                        TextField("Favorite Snack", text: $viewModel.snack)
+
+                        TextField("Favorite Snack", text: $petViewModel.favoriteSnack)
                             .padding()
                             .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.5)))
-                            .textFieldStyle(PlainTextFieldStyle())
-                        
-                        // Animal & Breed Selection
+
                         HStack(spacing: 20) {
                             VStack(alignment: .leading) {
                                 Text("Type of Animal")
                                     .font(.caption)
                                     .foregroundColor(.gray)
-                                Picker("Type of Animal", selection: $selectedAnimal) {
+
+                                Picker("Type of Animal", selection: $petViewModel.selectedAnimal) {
                                     ForEach(animalBreeds.keys.sorted(), id: \.self) { animal in
-                                        Text(animal)
+                                        Text(animal).tag(animal)
                                     }
                                 }
                                 .pickerStyle(MenuPickerStyle())
-                                .onChange(of: selectedAnimal) {
-                                    selectedBreed = animalBreeds[selectedAnimal]?.first ?? ""
+                                .onChange(of: petViewModel.selectedAnimal) { oldValue, newValue in
+                                    updateBreed(for: newValue) // Moved logic to a function
                                 }
                                 .frame(maxWidth: .infinity)
                                 .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
-                                
-                                VStack(alignment: .leading) {
-                                    Text("Breed")
-                                        .font(.caption)
-                                        .foregroundColor(.gray)
-                                    Picker("Breed", selection: $selectedBreed) {
-                                        ForEach(animalBreeds[selectedAnimal] ?? [], id: \.self) { breed in
-                                            Text(breed)
-                                        }
+
+                                Text("Breed")
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+
+                                Picker("Breed", selection: $petViewModel.selectedBreed) {
+                                    ForEach(animalBreeds[petViewModel.selectedAnimal] ?? [], id: \.self) { breed in
+                                        Text(breed).tag(breed)
                                     }
-                                    .pickerStyle(MenuPickerStyle())
-                                    .frame(maxWidth: .infinity)
-                                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
                                 }
+                                .pickerStyle(MenuPickerStyle())
+                                .frame(maxWidth: .infinity)
+                                .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
                             }
                         }
                         .padding()
                         .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.5)))
-                        
-                        // Navigation Buttons
+
                         HStack(spacing: 20) {
                             Button {
                                 dismiss()
@@ -126,9 +146,20 @@ struct CreatePetView: View {
                                     .frame(maxWidth: .infinity, minHeight: 44)
                                     .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                             }
-                            
+
                             Button {
-                                navigateToHealthInfo = true
+                                if validatePet() {
+                                    navigateToHealthInfo = true
+                                } else {
+                                    showErrorAlert = true
+                                }
+                                Task {
+                                    do {
+                                        try await petViewModel.savePet(forUserId: viewModel.userSession?.uid ?? "")
+                                    } catch {
+                                        print("Error saving pet: \(error.localizedDescription)")
+                                    }
+                                }
                             } label: {
                                 Text("Next")
                                     .font(.headline)
@@ -136,7 +167,6 @@ struct CreatePetView: View {
                                     .foregroundColor(.black)
                                     .frame(maxWidth: .infinity, minHeight: 44)
                                     .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
-
                             }
                         }
                         .padding(.horizontal, 30)
@@ -144,14 +174,27 @@ struct CreatePetView: View {
                     }
                     .padding()
                 }
-                .navigationDestination(isPresented: $navigateToHealthInfo) {
-                    HealthInfoView(name: viewModel.name)
+                .alert("Hi there!", isPresented: $showErrorAlert) {
+                    Button("OK", role: .cancel) {}
+                } message: {
+                    Text(errorMessage)
                 }
+                .navigationDestination(isPresented: $navigateToHealthInfo) {
+                    if let userId = viewModel.userSession?.uid {
+                        HealthInfoView(petId: petViewModel.petId, userId: userId) // Pass petId and userId
+                            .environmentObject(petViewModel)
+                            .environmentObject(viewModel)
+                        } else {
+                            Text("Error: No user session found")
+                                .foregroundColor(.red)
+                        }
+                    }
+                .scrollContentBackground(.hidden)
             }
         }
     }
 }
-    
+
 struct CreatePetView_Previews: PreviewProvider {
     static var previews: some View {
         CreatePetView()

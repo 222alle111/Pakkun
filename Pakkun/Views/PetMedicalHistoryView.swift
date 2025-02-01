@@ -8,20 +8,26 @@
 import SwiftUI
 
 struct PetMedicalHistoryView: View {
-    @StateObject var viewModel = CreatePetUserModel()
+//    @State private var vetVisitDate: [String] = [] // Store multiple vet visit dates
+//    @State private var vaccinations: [String] = [] // Store multiple vaccination dates
+//    @State private var medications: [String] = []// Store medications directly
     @State private var navigateToWelcomePage = false
     
-    //    @State private var vetVisitDate: [String] = [] // Store multiple vet visit dates
-    //    @State private var vaccinationDate: [String] = [] // Store multiple vaccination dates
-    //    @State private var medications: [String] = [] // Store medications directly
     @Environment(\.dismiss) var dismiss // To dismiss and go back
+    @EnvironmentObject var petViewModel: CreatePetUserModel
+    @EnvironmentObject var viewModel: AuthViewModel
+//    @State private var showErrorAlert = false
+//    @State private var errorMessage: String = ""
+    //    @StateObject var viewModel = CreatePetUserModel()
     
+    let petId: String
+    let userId: String
     
     var body: some View {
         ZStack {
             Color.blueBell
                 .edgesIgnoringSafeArea(.all)
-
+            
             VStack(spacing: 20) {
                 Text("Please Enter Your Pet’s Medical History")
                     .kerning(1)
@@ -29,21 +35,21 @@ struct PetMedicalHistoryView: View {
                     .foregroundColor(.black)
                     .multilineTextAlignment(.center)
                     .padding(.top, 20)
-
+                
                 ScrollView {
                     VStack(alignment: .leading, spacing: 15) {
                         // Vet Visits Section
-                        SectionView(title: "Vet Visits", items: $viewModel.vetVisitDate, placeholder: "Enter Vet Visit Date")
+                        SectionView(title: "Vet Visits", items: $petViewModel.vetVisitDate, placeholder: "Enter Vet Visit Date")
                         
                         // Vaccinations Section
-                        SectionView(title: "Vaccinations", items: $viewModel.vaccinationDate, placeholder: "Enter Vaccination Name and Date")
+                        SectionView(title: "Vaccinations", items: $petViewModel.vaccinations, placeholder: "Enter Vaccination Name and Date")
                         
                         // Medications Section
-                        SectionView(title: "Medications", items: $viewModel.medications, placeholder: "Enter Medication")
+                        SectionView(title: "Medications", items: $petViewModel.medications, placeholder: "Enter Medication")
                     }
                     .padding(.horizontal)
                 }
-
+                
                 // Navigation Buttons
                 HStack {
                     Button {
@@ -56,14 +62,21 @@ struct PetMedicalHistoryView: View {
                             .frame(maxWidth: .infinity, minHeight: 44)
                             .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                     }
-
+                    
                     Spacer()
-
+                    
                     Button {
+                        Task {
+                            do {
+                                try await petViewModel.saveMedicalHistory(petId: petId, userId: userId)
+                            } catch {
+                                print("Error saving pet: \(error.localizedDescription)")
+                            }
+                        }
                         navigateToWelcomePage = true
                         print("Pet Successfully recorded")
                     } label: {
-                        Text("Done")
+                        Text("Create Pet")
                             .fontWeight(.semibold)
                             .font(.headline)
                             .foregroundColor(.black)
@@ -75,13 +88,15 @@ struct PetMedicalHistoryView: View {
                 .padding(.bottom, 20)
             }
         }
+        .scrollContentBackground(.hidden)
         .navigationDestination(isPresented: $navigateToWelcomePage) {
             WelcomePageView()
         }
     }
+//    private func 
 }
 
-// MARK: - Section View (With Delete Option)
+// MARK: - Section View
 struct SectionView: View {
     let title: String
     @Binding var items: [String]
@@ -111,7 +126,7 @@ struct SectionView: View {
                         .padding(5)
                         .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                     
-                    // DELETE BUTTON ("-")
+                    // DELETE BUTTON
                     if items.count > 1 { // Prevent deleting the last remaining item
                         Button(action: {
                             items.remove(at: index) // Remove the selected entry
@@ -129,8 +144,8 @@ struct SectionView: View {
     }
 }
 
-struct PetMedicalHistory_Previews: PreviewProvider {
-    static var previews: some View {
-        PetMedicalHistoryView()
-    }
-}
+//struct PetMedicalHistory_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PetMedicalHistoryView(petId: "123", userId: "12")
+//    }
+//}

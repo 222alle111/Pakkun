@@ -14,6 +14,7 @@ struct UserRegisterPageView: View {
     @State private var confirmPassword: String = ""
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: AuthViewModel
+    @State private var navigateToUserProfileView = false
     
     var body: some View {
         ZStack {
@@ -66,13 +67,14 @@ struct UserRegisterPageView: View {
                 
                 // Sign up button
                 Button {
-//                    print("Sign user up..")
-//                    print(viewModel)
+                    //                    print("Sign user up..")
+                    //                    print(viewModel)
                     Task {
                         try await viewModel.createUser(withEmail: email,
                                                        password: password,
                                                        fullname: fullname)
                     }
+                    navigateToUserProfileView = true
                 } label: {
                     HStack {
                         Text("SIGN UP")
@@ -90,6 +92,11 @@ struct UserRegisterPageView: View {
                 .cornerRadius(10)
                 .padding(.bottom, 16) // Adjust padding for bottom space
                 
+                NavigationLink("", destination: UserProfileView())
+                    .isDetailLink(false)
+                    .opacity(0) // Hide the link
+                    .disabled(!navigateToUserProfileView)
+                
                 // Sign in label
                 Button {
                     dismiss()
@@ -103,6 +110,9 @@ struct UserRegisterPageView: View {
                 }
                 .padding(.bottom, 32) // Additional padding to ensure spacing from screen bottom
             }
+        }
+        .navigationDestination(isPresented: $navigateToUserProfileView) {
+            UserProfileView()
         }
     }
 }

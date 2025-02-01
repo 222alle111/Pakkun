@@ -24,7 +24,7 @@
 		4A9177792D4322700034321A /* PetProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177782D4322700034321A /* PetProfileView.swift */; };
 		4A91777B2D4322BB0034321A /* CreatePetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A91777A2D4322BB0034321A /* CreatePetView.swift */; };
 		4A91777D2D4322E50034321A /* HealthInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A91777C2D4322E50034321A /* HealthInfoView.swift */; };
-		4A9177812D4324120034321A /* PetUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177802D4324120034321A /* PetUserModel.swift */; };
+		4A9177812D4324120034321A /* PetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177802D4324120034321A /* PetModel.swift */; };
 		4A9177832D4343F70034321A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177822D4343F70034321A /* HeaderView.swift */; };
 		4A9177872D44A5CD0034321A /* PetMedicalHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177862D44A5CD0034321A /* PetMedicalHistoryView.swift */; };
 		4A9177892D44A60B0034321A /* WelcomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177882D44A60B0034321A /* WelcomePageView.swift */; };
@@ -77,7 +77,7 @@
 		4A9177782D4322700034321A /* PetProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetProfileView.swift; sourceTree = "<group>"; };
 		4A91777A2D4322BB0034321A /* CreatePetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePetView.swift; sourceTree = "<group>"; };
 		4A91777C2D4322E50034321A /* HealthInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthInfoView.swift; sourceTree = "<group>"; };
-		4A9177802D4324120034321A /* PetUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetUserModel.swift; sourceTree = "<group>"; };
+		4A9177802D4324120034321A /* PetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetModel.swift; sourceTree = "<group>"; };
 		4A9177822D4343F70034321A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		4A9177862D44A5CD0034321A /* PetMedicalHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetMedicalHistoryView.swift; sourceTree = "<group>"; };
 		4A9177882D44A60B0034321A /* WelcomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePageView.swift; sourceTree = "<group>"; };
@@ -195,7 +195,7 @@
 		4A91777E2D4323D10034321A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4A9177802D4324120034321A /* PetUserModel.swift */,
+				4A9177802D4324120034321A /* PetModel.swift */,
 				4A54C35A2D49765600BD059A /* AuthViewModel.swift */,
 				4A54C3562D4970E600BD059A /* UserModel.swift */,
 			);
@@ -428,7 +428,7 @@
 				4A91775D2D42BA100034321A /* RootView.swift in Sources */,
 				4A91777B2D4322BB0034321A /* CreatePetView.swift in Sources */,
 				4A54C3512D494CDC00BD059A /* InputView.swift in Sources */,
-				4A9177812D4324120034321A /* PetUserModel.swift in Sources */,
+				4A9177812D4324120034321A /* PetModel.swift in Sources */,
 				4A91775E2D42BA100034321A /* SettingView.swift in Sources */,
 				4A54C35B2D49765600BD059A /* AuthViewModel.swift in Sources */,
 				4A54C3532D49666400BD059A /* UserProfileView.swift in Sources */,

@@ -16,7 +16,8 @@ protocol AuthenticationFormProtocol {
 @MainActor
 class AuthViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User? //going to tell us wheater or not we have a user loogged in. when we open our app it knows whether or not to route us to the login flow or profile view. firebase user object
-    @Published var currrentUser: userModel? // my user i created
+    @Published var currentUser: UserModel? // my user i created
+    //    @Published var pets: [Pet] = [] // stores fetched pets
     
     init() {
         self.userSession = Auth.auth().currentUser //if we have someone logged in it has a value, it's going to show us the profile view
@@ -27,7 +28,7 @@ class AuthViewModel: ObservableObject {
     }
     
     func signIn(withEmail email: String, password: String) async throws {
-//        print("Sign in...")
+        //        print("Sign in...")
         do {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
@@ -47,7 +48,7 @@ class AuthViewModel: ObservableObject {
             self.userSession = result.user
             
             // Create a User object to store in Firestore
-            let user = userModel(id: result.user.uid, fullname: fullname, email: email)
+            let user = UserModel(id: result.user.uid, fullname: fullname, email: email)
             
             // Encode the user and save to Firestore
             let encodedUser = try Firestore.Encoder().encode(user)
@@ -63,21 +64,60 @@ class AuthViewModel: ObservableObject {
         do {
             try Auth.auth().signOut() //signout user on backend
             self.userSession = nil // wipes out user session and takes us back to home page
-            self.currrentUser = nil //wipes out current user data model
+            self.currentUser = nil //wipes out current user data model
         } catch {
             print("Failed to sign out with error: \(error.localizedDescription)")
         }
     }
     
-    func deleteAccount() {
-        
-    }
+    //    func deleteAccount() {
+    //
+    //    }
     
     func fetchUser() async {
-        guard let uid = Auth.auth().currentUser?.uid else { return } //this is going to get the current user's id
+        guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        guard let snapshot = try? await Firestore.firestore().collection("users").document(uid).getDocument() else { return }
-        self.currrentUser = try? snapshot.data(as: userModel.self)
+        let userRef = Firestore.firestore().collection("users").document(uid)
+        let snapshot = try? await userRef.getDocument()
+        
+        if let userData = try? snapshot?.data(as: UserModel.self) {
+            self.currentUser = userData
+            do {
+                try await fetchPets(forUserId: uid)
+            } catch {
+                print("error fetching user data: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    // fetch pet data
+    func fetchPets(forUserId userId: String) async throws {
+        guard !userId.isEmpty else {
+            print("Error: User ID is empty")
+            return
+        }
+        
+        let petRef = Firestore.firestore().collection("users").document(userId).collection("pets")
+        
+        do {
+            let querySnapshot = try await petRef.getDocuments()
+            let _: [Pet] = querySnapshot.documents.compactMap { document in
+                do {
+                    return try document.data(as: Pet.self) // Automatically decodes Timestamps into date
+                } catch {
+                    print("Error decoding pet document: \(error)")
+                    return nil
+                }
+            }
+            
+            // Update the user's pet list (if you have a property to store it)
+            //            DispatchQueue.main.async {
+            //                self.currentUser?.pets = pets
+            //            }
+            
+        } catch {
+            print("Error fetching pets: \(error.localizedDescription)")
+        }
     }
 }
-//        print("Error: current user is \(self.currrentUser)")
+

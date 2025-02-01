@@ -52,6 +52,7 @@ struct WelcomePageView: View {
             }
             .padding()
         }
+        .scrollContentBackground(.hidden)
         .navigationDestination(isPresented: $navigateToPetProfileView) {
             PetProfileView()
             

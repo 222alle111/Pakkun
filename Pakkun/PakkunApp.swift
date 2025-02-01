@@ -12,16 +12,18 @@ import GoogleSignIn
 
 @main
 struct PakkunApp: App {
-    @StateObject var viewModel = AuthViewModel() // Initialized it in thie one place 
+    @StateObject var viewModel = AuthViewModel() // Initialized it in thie one place
+    @StateObject var petViewModel = CreatePetUserModel()
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     var body: some Scene {
         WindowGroup {
 //            NavigationStack {
-            ContentView()
-//            HomePageView()
+//            ContentView()
+            HomePageView()
                 .environmentObject(viewModel)
+                .environmentObject(petViewModel)
 //                RootView()
 //            }
         }

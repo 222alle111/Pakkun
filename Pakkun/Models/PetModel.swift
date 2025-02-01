@@ -6,37 +6,31 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
-struct Pet: Codable, Identifiable {
-    let id: String
+struct Pet: Codable {
+    @DocumentID var id: String?
     var name: String
-    var dateOfBirth: String
+    @ServerTimestamp var dateOfBirth: Date? // Firestore handles Timestamp conversion
     var zodiac: String
     var favoriteSnack: String
-    var type: String
-    var breed: String
-    var healthInfo: HealthInfo
-    var medicalHistory: PetMedicalHistory
+    var selectedAnimal: String
+    var selectedBreed: String
 }
-
-struct HealthInfo: Codable {
-    var foodBrand: String
-    var foodAmount: String
-    var timesPerDay: String
-    var walkTimes: String
-    var walkDuration: String
-    var weight: String
-}
-struct PetMedicalHistory: Codable {
-    var id: String // Firestore document ID
-    var petId: String // The ID of the pet
-    var vetVisitDates: [String]
-    var vaccinationDates: [String]
-    var medications: [String]
-}
-//struct User: Codable {
-//    let id: String
-//    var email: String
-//    var pets: [Pet]
-//}
+    
+struct HealthInfo: Identifiable, Codable {
+    let id: String
+    let foodBrand: String
+    let foodAmount: String
+    let timesperday: String
+    let walkDuration: String
+    let selectedWeight: String
+    }
+    
+struct PetMedicalInfo: Identifiable, Codable {
+    let id: String
+    let vetVisitDate: [String]
+    let vaccinations: [String]
+    let medications: [String]
+    }
 

@@ -11,7 +11,16 @@ struct HomePageView: View {
     @State private var email = ""
     @State private var password = ""
     @EnvironmentObject var viewModel: AuthViewModel
-    
+    @State private var navigateToUserProfileView = false
+
+    // Form validation
+    var formIsValid: Bool {
+        return !email.isEmpty
+        && email.contains("@")
+        && !password.isEmpty
+        && password.count >= 6
+    }
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -41,8 +50,12 @@ struct HomePageView: View {
                     // Sign in button
                     Button {
                         Task {
-                            try await viewModel.signIn(withEmail: email,
-                                                       password: password)
+                            do {
+                                try await viewModel.signIn(withEmail: email, password: password)
+                                navigateToUserProfileView = true // Trigger navigation
+                            } catch {
+                                print("Login failed: \(error.localizedDescription)")
+                            }
                         }
                     } label: {
                         HStack {
@@ -61,10 +74,17 @@ struct HomePageView: View {
                     .opacity(formIsValid ? 1.0 : 0.5)
                     .cornerRadius(20)
                     .padding(.top, 24)
-                    
+
+                    // Navigation link to user profile
+                    NavigationLink("", destination: UserProfileView())
+                        .isDetailLink(false)
+                        .opacity(0) // Hide the link
+                        .disabled(!navigateToUserProfileView)
+
+                    // Link to the registration page
                     NavigationLink {
                         UserRegisterPageView()
-                            .environmentObject(viewModel) 
+                            .environmentObject(viewModel)
                             .navigationBarBackButtonHidden(true)
                     } label: {
                         HStack {
@@ -81,16 +101,10 @@ struct HomePageView: View {
                     }
                 }
             }
+            .navigationDestination(isPresented: $navigateToUserProfileView) {
+                UserProfileView()
+            }
         }
-    }
-}
-// MARK: AuthenticationFormProtocol
-extension HomePageView: AuthenticationFormProtocol {
-    var formIsValid: Bool {
-        return !email.isEmpty
-        && email.contains( "@" )
-        && !password.isEmpty
-        && password.count >= 6
     }
 }
 

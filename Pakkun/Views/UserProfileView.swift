@@ -17,7 +17,7 @@ struct UserProfileView: View {
                 Color(.blueBell)
                     .edgesIgnoringSafeArea(.all)
                 
-                if let user = viewModel.currrentUser {
+                if let user = viewModel.currentUser {
                     List {
                         Section {
                             HStack {

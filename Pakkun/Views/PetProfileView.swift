@@ -15,7 +15,7 @@ struct PetProfileView: View {
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
-                // **Top Bar with Side Button**
+                // Top Bar with Side Button
                 HStack {
                     Spacer()
                     Button(action: {
@@ -60,7 +60,7 @@ struct PetProfileView: View {
                 
                 Spacer()
                 
-                // **Centered Button Grid**
+                // Centered Button Grid
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
                     FeatureButton(icon: "pawprint", label: "Track Activity")
                     FeatureButton(icon: "stethoscope", label: "Medical History")
@@ -71,6 +71,7 @@ struct PetProfileView: View {
                 
             }
         }
+        .scrollContentBackground(.hidden)
 //        .navigationDestination(isPresented: $navigateToSettingView ) {
 //            SettingView(showSignInView: $navigateToSettingView)
         }
