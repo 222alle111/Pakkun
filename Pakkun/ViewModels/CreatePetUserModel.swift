@@ -65,13 +65,17 @@ class CreatePetUserModel: ObservableObject {
                 "favoriteSnack": favoriteSnack,
                 "selectedAnimal": selectedAnimal,
                 "selectedBreed": selectedBreed,
-                                     ]) // save pet data to firestore
+            ]) // save pet data to firestore
             print("Pet successfully saved with ID: \(petId)")
             print("Saving pet for userId: \(userId), petId: \(petId)")
             
             await MainActor.run {
                 self.petId = petId // petId is updated on the main thread
                 self.currentPet = newPet
+            }
+            
+            await MainActor.run {
+                self.resetPetData()
             }
             
             try await saveHealthInfo(petId: petId,
@@ -206,29 +210,27 @@ class CreatePetUserModel: ObservableObject {
             return nil
         }
     }
-}
-
     
-//    func resetPetData() {
-//        self.name = ""
-//        self.dateOfBirth = Date()
-//        self.zodiac = ""
-//        self.favoriteSnack = ""
-//        self.selectedAnimal = "Dog"
-//        self.selectedBreed = "Pug"
-//        self.petId = ""
-//        
-//        self.foodBrand = ""
-//        self.foodAmount = ""
-//        self.timesPerDay = ""
-//        self.walkTimes = ""
-//        self.walkDuration = ""
-//        self.selectedWeight = "5 lbs"
-//        
-//        self.vetVisitDate = []
-//        self.vaccinations = []
-//        self.medications = []
-//        
-//        self.currentPet = nil
-//    }
-
+    func resetPetData() {
+        self.name = ""
+        self.dateOfBirth = Date()
+        self.zodiac = ""
+        self.favoriteSnack = ""
+        self.selectedAnimal = "Dog"
+        self.selectedBreed = "Pug"
+        self.petId = ""
+    
+        self.foodBrand = ""
+        self.foodAmount = ""
+        self.timesPerDay = ""
+        self.walkTimes = ""
+        self.walkDuration = ""
+        self.selectedWeight = "5 lbs"
+    
+        self.vetVisitDate = []
+        self.vaccinations = []
+        self.medications = []
+        
+        self.imagePath = ""
+        }
+}
