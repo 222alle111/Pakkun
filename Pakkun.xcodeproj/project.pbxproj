@@ -12,9 +12,10 @@
 		4A54C3552D496C0900BD059A /* SettingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A54C3542D496C0900BD059A /* SettingRowView.swift */; };
 		4A54C3572D4970E600BD059A /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A54C3562D4970E600BD059A /* UserModel.swift */; };
 		4A54C35B2D49765600BD059A /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A54C35A2D49765600BD059A /* AuthViewModel.swift */; };
+		4A654AFD2D5169C2005C359D /* PetMedicalTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A654AFC2D5169C2005C359D /* PetMedicalTabView.swift */; };
+		4A654AFF2D5184EE005C359D /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A654AFE2D5184EE005C359D /* ImagePicker.swift */; };
 		4A9177422D4208EF0034321A /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 4A9177412D4208EF0034321A /* GoogleSignIn */; };
 		4A9177442D4208EF0034321A /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4A9177432D4208EF0034321A /* GoogleSignInSwift */; };
-		4A9177472D420B4D0034321A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4A9177462D420B4D0034321A /* GoogleService-Info.plist */; };
 		4A91775B2D42BA100034321A /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177542D42BA100034321A /* AuthenticationManager.swift */; };
 		4A91775C2D42BA100034321A /* AV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177552D42BA100034321A /* AV.swift */; };
 		4A91775D2D42BA100034321A /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9177562D42BA100034321A /* RootView.swift */; };
@@ -41,6 +42,7 @@
 		4AC356492D418181004EC58A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AC356422D418181004EC58A /* Assets.xcassets */; };
 		4AC3564A2D418181004EC58A /* PakkunApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC356452D418181004EC58A /* PakkunApp.swift */; };
 		4AC3564C2D418181004EC58A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC356432D418181004EC58A /* ContentView.swift */; };
+		4AE2291B2D4DC34B0074BD01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4AE2291A2D4DC34B0074BD01 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,8 +68,9 @@
 		4A54C3542D496C0900BD059A /* SettingRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRowView.swift; sourceTree = "<group>"; };
 		4A54C3562D4970E600BD059A /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		4A54C35A2D49765600BD059A /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		4A654AFC2D5169C2005C359D /* PetMedicalTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetMedicalTabView.swift; sourceTree = "<group>"; };
+		4A654AFE2D5184EE005C359D /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		4A9177452D4209400034321A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4A9177462D420B4D0034321A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4A9177542D42BA100034321A /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		4A9177552D42BA100034321A /* AV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AV.swift; sourceTree = "<group>"; };
 		4A9177562D42BA100034321A /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -91,6 +94,7 @@
 		4AC356422D418181004EC58A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4AC356432D418181004EC58A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4AC356452D418181004EC58A /* PakkunApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PakkunApp.swift; sourceTree = "<group>"; };
+		4AE2291A2D4DC34B0074BD01 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -144,6 +148,7 @@
 			children = (
 				4A54C3502D494CDC00BD059A /* InputView.swift */,
 				4A54C3542D496C0900BD059A /* SettingRowView.swift */,
+				4A654AFE2D5184EE005C359D /* ImagePicker.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -188,6 +193,7 @@
 				4AA37C212D4941B400E3A334 /* HomePageView.swift */,
 				4AA37C232D49424400E3A334 /* UserRegisterPageView.swift */,
 				4A54C3522D49666400BD059A /* UserProfileView.swift */,
+				4A654AFC2D5169C2005C359D /* PetMedicalTabView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -251,7 +257,7 @@
 				4AC356422D418181004EC58A /* Assets.xcassets */,
 				4AC356432D418181004EC58A /* ContentView.swift */,
 				4AC356452D418181004EC58A /* PakkunApp.swift */,
-				4A9177462D420B4D0034321A /* GoogleService-Info.plist */,
+				4AE2291A2D4DC34B0074BD01 /* GoogleService-Info.plist */,
 				4A9177452D4209400034321A /* Info.plist */,
 			);
 			path = Pakkun;
@@ -387,7 +393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AC356482D418181004EC58A /* Preview Assets.xcassets in Resources */,
-				4A9177472D420B4D0034321A /* GoogleService-Info.plist in Resources */,
+				4AE2291B2D4DC34B0074BD01 /* GoogleService-Info.plist in Resources */,
 				4AC356492D418181004EC58A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,6 +421,7 @@
 			files = (
 				4AA37C202D4836F900E3A334 /* CreatePetUserModel.swift in Sources */,
 				4AC3564A2D418181004EC58A /* PakkunApp.swift in Sources */,
+				4A654AFF2D5184EE005C359D /* ImagePicker.swift in Sources */,
 				4A54C3552D496C0900BD059A /* SettingRowView.swift in Sources */,
 				4AA37C242D49424400E3A334 /* UserRegisterPageView.swift in Sources */,
 				4A9177792D4322700034321A /* PetProfileView.swift in Sources */,
@@ -433,6 +440,7 @@
 				4A54C35B2D49765600BD059A /* AuthViewModel.swift in Sources */,
 				4A54C3532D49666400BD059A /* UserProfileView.swift in Sources */,
 				4A9177662D42C5560034321A /* Utilities.swift in Sources */,
+				4A654AFD2D5169C2005C359D /* PetMedicalTabView.swift in Sources */,
 				4A91775F2D42BA100034321A /* SignInEmailView.swift in Sources */,
 				4A9177832D4343F70034321A /* HeaderView.swift in Sources */,
 				4A9177892D44A60B0034321A /* WelcomePageView.swift in Sources */,
@@ -596,9 +604,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pakkun/Preview Content\"";
+				DEVELOPMENT_TEAM = RV77MZ9D9K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pakkun/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Would like to use the camera to take photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -609,7 +619,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = name.alejandraguevara.Pakkun;
+				PRODUCT_BUNDLE_IDENTIFIER = com.adacapstone.PAKKUN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -625,9 +635,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pakkun/Preview Content\"";
+				DEVELOPMENT_TEAM = RV77MZ9D9K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pakkun/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Would like to use the camera to take photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -638,7 +650,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = name.alejandraguevara.Pakkun;
+				PRODUCT_BUNDLE_IDENTIFIER = com.adacapstone.PAKKUN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

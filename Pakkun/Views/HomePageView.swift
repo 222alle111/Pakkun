@@ -11,7 +11,10 @@ struct HomePageView: View {
     @State private var email = ""
     @State private var password = ""
     @EnvironmentObject var viewModel: AuthViewModel
-    @State private var navigateToUserProfileView = false
+//    @State private var navigateToUserProfileView = false
+    @State private var showUserProfile = false
+    
+    let pet: Pet
 
     // Form validation
     var formIsValid: Bool {
@@ -52,7 +55,8 @@ struct HomePageView: View {
                         Task {
                             do {
                                 try await viewModel.signIn(withEmail: email, password: password)
-                                navigateToUserProfileView = true // Trigger navigation
+                                showUserProfile = true
+//                                navigateToUserProfileView = true // Trigger navigation
                             } catch {
                                 print("Login failed: \(error.localizedDescription)")
                             }
@@ -76,14 +80,14 @@ struct HomePageView: View {
                     .padding(.top, 24)
 
                     // Navigation link to user profile
-                    NavigationLink("", destination: UserProfileView())
+                    NavigationLink("", destination: UserProfileView(pet: pet))
                         .isDetailLink(false)
                         .opacity(0) // Hide the link
-                        .disabled(!navigateToUserProfileView)
+                        .disabled(!showUserProfile)
 
                     // Link to the registration page
                     NavigationLink {
-                        UserRegisterPageView()
+                        UserRegisterPageView(pet: pet)
                             .environmentObject(viewModel)
                             .navigationBarBackButtonHidden(true)
                     } label: {
@@ -101,15 +105,11 @@ struct HomePageView: View {
                     }
                 }
             }
-            .navigationDestination(isPresented: $navigateToUserProfileView) {
-                UserProfileView()
+//            .navigationDestination(isPresented: $navigateToUserProfileView) {
+//                UserProfileView(pet: pet)
+            .fullScreenCover(isPresented: $showUserProfile) {
+                UserProfileView(pet: pet)
             }
         }
-    }
-}
-
-struct HomePageView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomePageView()
     }
 }

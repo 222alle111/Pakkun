@@ -17,6 +17,13 @@ struct CreatePetView: View {
     @State private var navigateToHealthInfo = false
     @State private var showErrorAlert = false
     @State private var errorMessage: String = ""
+    
+    @State var changeProfileImage = false
+    @State private var openCameraRoll = false
+    @State private var imageSelected: UIImage? = nil
+
+    
+    let pet: Pet
 
     let animalBreeds: [String: [String]] = [
         "Dog": ["Beagle", "Chihuahua", "Pug", "French Bulldog", "Golden Retriever"],
@@ -73,14 +80,36 @@ struct CreatePetView: View {
                         .multilineTextAlignment(.center)
                         .foregroundColor(.black)
                         .padding(.top, 20)
-                    
-                    Image("Pug")
-                        .resizable()
-//                        .scaledToFit()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 150, height: 150)
-                        .clipShape(Circle())
-                        .overlay(Circle().stroke(Color.black, lineWidth: 1))
+                    // create button for image: image picker
+                    ZStack {
+                        Button(action: {
+                            openCameraRoll = true
+                        }, label: {
+                            if changeProfileImage, let validImage = imageSelected {
+                                Image(uiImage: validImage)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 130, height: 130)
+                                    .clipShape(Circle())
+                                    .overlay(Circle().stroke(Color.black, lineWidth: 1))
+                            } else {
+                                Image("PetProfile")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 130, height: 130)
+                                    .clipShape(Circle())
+                                    .overlay(Circle().stroke(Color.black, lineWidth: 1))
+                            }
+                        })
+                        
+                        Image(systemName: "plus")
+                            .frame(width: 30, height: 30)
+                            .foregroundColor(.black)
+                            .background(Color.white.opacity(0.7))
+                            .clipShape(Circle())
+                            .offset(x: 40, y: 40)
+                    }
+
                     
                     VStack(spacing: 15) {
                         TextField("Name", text: $petViewModel.name)
@@ -137,6 +166,7 @@ struct CreatePetView: View {
 
                         HStack(spacing: 20) {
                             Button {
+//                                petViewModel.reset()
                                 dismiss()
                             } label: {
                                 Text("Back")
@@ -181,24 +211,33 @@ struct CreatePetView: View {
                 }
                 .navigationDestination(isPresented: $navigateToHealthInfo) {
                     if let userId = viewModel.userSession?.uid {
-                        HealthInfoView(petId: petViewModel.petId, userId: userId) // Pass petId and userId
+                        HealthInfoView(petId: petViewModel.petId, userId: userId, pet: pet) // Pass petId and userId
                             .environmentObject(petViewModel)
                             .environmentObject(viewModel)
                         } else {
                             Text("Error: No user session found")
                                 .foregroundColor(.red)
                         }
+                        }
                     }
                 .scrollContentBackground(.hidden)
+                .navigationBarBackButtonHidden(true)
+        }.sheet(isPresented: $openCameraRoll) {
+            ImagePicker(selectedImage: $imageSelected,
+                        sourceType: .photoLibrary)
+            .onDisappear {
+                if let validImage = imageSelected {
+                    if let savedPath = petViewModel.saveImageToDocuments(image: validImage, for: petViewModel.petId) {
+                        DispatchQueue.main.async {
+                            petViewModel.imagePath = savedPath
+                            changeProfileImage = true
+                        }
+                    }
+                } else {
+                    changeProfileImage = false
+                }
             }
+            .ignoresSafeArea()
+        }
         }
     }
-}
-
-struct CreatePetView_Previews: PreviewProvider {
-    static var previews: some View {
-        CreatePetView()
-        }
-    }
-    
-

@@ -8,8 +8,8 @@
 import Foundation
 import FirebaseFirestore
 
-struct Pet: Codable {
-    @DocumentID var id: String?
+struct Pet: Identifiable, Codable {
+    @DocumentID var id: String? // firebase auto-generates this
     var name: String
     @ServerTimestamp var dateOfBirth: Date? // Firestore handles Timestamp conversion
     var zodiac: String

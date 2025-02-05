@@ -17,7 +17,6 @@ struct HealthInfoView: View {
     @State private var selectedWeight = "5 lbs"
 
     @State private var navigateToRegisterPetMedical = false
-//    @State private var navigateToCreatePet = false
     @State private var showErrorAlert = false
     @State private var errorMessage: String = ""
     
@@ -25,9 +24,9 @@ struct HealthInfoView: View {
     @EnvironmentObject var petViewModel: CreatePetUserModel
     @EnvironmentObject var viewModel: AuthViewModel
     
-//    let name: String
     let petId: String
     let userId: String
+    let pet: Pet
         
     let weightOptions = ["5 lbs", "10 lbs", "11 lbs", "12 lbs", "13 lbs" ,"15 lbs", "20 lbs", "22 lbs", "23 lbs", "24 lbs", "25 lbs", "26 lbs", "27 lbs", "28 lbs", "29 lbs", "30 lbs"]
     
@@ -39,23 +38,15 @@ struct HealthInfoView: View {
             
             VStack(spacing: 20) {
                 VStack {
-                        Text("Hi !") //\(name)
+                    if let pet = petViewModel.currentPet {
+                        Text("Hi \(pet.name)!") //\(name)
                             .kerning(5)
                             .font(.custom("Inter", size: 30, relativeTo: .title))
                             .foregroundColor(.black)
                     }
+                }
                     .frame(maxWidth: .infinity)
                     .padding(.top, 30)
-
-//                    Spacer(minLength: 10)
-                
-                // Pet image
-                //                    Image("") //
-                //                        .resizable()
-                //                        .scaledToFit()
-                //                        .frame(width: 150, height: 150)
-                //                        .clipShape(Circle())
-                //                        .overlay(Circle().stroke(Color.black, lineWidth: 1))
                 
                 Text("Please log your pet’s activities, food log, and medical visits.")
                     .kerning(1)
@@ -208,17 +199,13 @@ struct HealthInfoView: View {
                 Text(errorMessage)
             }
             .scrollContentBackground(.hidden)
-//            .navigationDestination(isPresented: $navigateToCreatePet) {
-//                CreatePetView()
-//            }
         }
         .scrollContentBackground(.hidden)
+        .navigationBarBackButtonHidden(true)
         .navigationDestination(isPresented: $navigateToRegisterPetMedical) {
-            PetMedicalHistoryView(petId: petViewModel.petId, userId: userId)
+            PetMedicalHistoryView(petId: petViewModel.petId, userId: userId, pet: pet)
                 .environmentObject(petViewModel)
                 .environmentObject(viewModel)
-//                .environmentObject(petViewModel)
-//                .environmentObject(AuthViewModel())
         }
     }
     // Validation
@@ -250,12 +237,3 @@ struct HealthInfoView: View {
         return true
     }
 }
-
-//struct HealthInfoView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HealthInfoView()
-//            .environmentObject(CreatePetUserModel())
-//            .environmentObject(AuthViewModel())
-//    }
-//}
-

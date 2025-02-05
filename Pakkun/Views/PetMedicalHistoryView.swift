@@ -16,12 +16,10 @@ struct PetMedicalHistoryView: View {
     @Environment(\.dismiss) var dismiss // To dismiss and go back
     @EnvironmentObject var petViewModel: CreatePetUserModel
     @EnvironmentObject var viewModel: AuthViewModel
-//    @State private var showErrorAlert = false
-//    @State private var errorMessage: String = ""
-    //    @StateObject var viewModel = CreatePetUserModel()
     
     let petId: String
     let userId: String
+    let pet: Pet
     
     var body: some View {
         ZStack {
@@ -66,15 +64,20 @@ struct PetMedicalHistoryView: View {
                     Spacer()
                     
                     Button {
-                        Task {
-                            do {
-                                try await petViewModel.saveMedicalHistory(petId: petId, userId: userId)
-                            } catch {
-                                print("Error saving pet: \(error.localizedDescription)")
+                        // optional validation
+                        if !petViewModel.vetVisitDate.isEmpty || !petViewModel.vaccinations.isEmpty || !petViewModel.medications.isEmpty {
+                            Task {
+                                do {
+                                    try await petViewModel.saveMedicalHistory(petId: petId, userId: userId)
+                                } catch {
+                                    print("Error saving pet: \(error.localizedDescription)")
+                                }
                             }
+                            navigateToWelcomePage = true
+                            print("Pet Successfully recorded")
+                        } else {
+                            print("No medical history entered")
                         }
-                        navigateToWelcomePage = true
-                        print("Pet Successfully recorded")
                     } label: {
                         Text("Create Pet")
                             .fontWeight(.semibold)
@@ -89,8 +92,9 @@ struct PetMedicalHistoryView: View {
             }
         }
         .scrollContentBackground(.hidden)
+        .navigationBarBackButtonHidden(true)
         .navigationDestination(isPresented: $navigateToWelcomePage) {
-            WelcomePageView()
+            WelcomePageView(pet: pet)
         }
     }
 //    private func 
@@ -143,9 +147,3 @@ struct SectionView: View {
         .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.2)))
     }
 }
-
-//struct PetMedicalHistory_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PetMedicalHistoryView(petId: "123", userId: "12")
-//    }
-//}

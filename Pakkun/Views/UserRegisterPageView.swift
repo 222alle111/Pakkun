@@ -12,9 +12,12 @@ struct UserRegisterPageView: View {
     @State private var fullname: String = ""
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
+    
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var navigateToUserProfileView = false
+    
+    let pet: Pet
     
     var body: some View {
         ZStack {
@@ -22,7 +25,7 @@ struct UserRegisterPageView: View {
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
-                Spacer() // Push everything to the top
+                Spacer()
                 
                 // Form fields
                 VStack(spacing: 24) {
@@ -63,7 +66,7 @@ struct UserRegisterPageView: View {
                 .padding(.horizontal)
                 .padding(.top, 12)
                 
-                Spacer() // Add space between form fields and the button
+                Spacer()
                 
                 // Sign up button
                 Button {
@@ -92,7 +95,7 @@ struct UserRegisterPageView: View {
                 .cornerRadius(10)
                 .padding(.bottom, 16) // Adjust padding for bottom space
                 
-                NavigationLink("", destination: UserProfileView())
+                NavigationLink("", destination: UserProfileView(pet: pet))
                     .isDetailLink(false)
                     .opacity(0) // Hide the link
                     .disabled(!navigateToUserProfileView)
@@ -108,11 +111,11 @@ struct UserRegisterPageView: View {
                     }
                     .font(.system(size: 14))
                 }
-                .padding(.bottom, 32) // Additional padding to ensure spacing from screen bottom
+                .padding(.bottom, 32)
             }
         }
         .navigationDestination(isPresented: $navigateToUserProfileView) {
-            UserProfileView()
+            UserProfileView(pet: pet)
         }
     }
 }
@@ -128,8 +131,3 @@ extension UserRegisterPageView: AuthenticationFormProtocol {
     }
 }
 
-struct UserRegisterPageView_Previews: PreviewProvider {
-    static var previews: some View {
-        UserRegisterPageView()
-    }
-}

@@ -1,0 +1,12 @@
+//
+//  .gitignore.swift
+//  Pakkun
+//
+//  Created by New Student on 2/3/25.
+//
+// Ignore the GoogleService-Info.plist file
+GoogleService-Info.plist
+Info.plist
+
+// Swift Package Manger
+.swiftpm/
