@@ -20,7 +20,7 @@ struct CreatePetView: View {
     
     @State var changeProfileImage = false
     @State private var openCameraRoll = false
-    @State private var imageSelected: UIImage? = nil
+    @State private var imageSelected: UIImage? = nil // created state variable called imageSelected where it will store the image selected in a UIimage format
 
     
     let pet: Pet

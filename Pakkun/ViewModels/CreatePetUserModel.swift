@@ -43,7 +43,6 @@ class CreatePetUserModel: ObservableObject {
         
         do {
             let petId = UUID().uuidString // generates a new pet
-            
             //            print("Generated petId: \(petId)")
             
             let petRef = db.collection("users").document(userId).collection("pets").document(petId) // pet will store in subcollection under users document
@@ -57,7 +56,7 @@ class CreatePetUserModel: ObservableObject {
                              selectedBreed: selectedBreed
             )
             
-            try await petRef.setData([ // creates a dictionary
+            try await petRef.setData([ // creates a dictionary // save pet data to firestore
                 "id": petId,
                 "name": name,
                 "dateOfBirth": Timestamp(date: dateOfBirth),
@@ -65,7 +64,7 @@ class CreatePetUserModel: ObservableObject {
                 "favoriteSnack": favoriteSnack,
                 "selectedAnimal": selectedAnimal,
                 "selectedBreed": selectedBreed,
-            ]) // save pet data to firestore
+            ])
             print("Pet successfully saved with ID: \(petId)")
             print("Saving pet for userId: \(userId), petId: \(petId)")
             
@@ -126,7 +125,7 @@ class CreatePetUserModel: ObservableObject {
             print("Error: User ID or Pet ID is empty.")
             return
         }
-        let medicalRef = db.collection("users").document(userId).collection("pets").document(petId).collection("medicalHistory").document()
+        let medicalRef = db.collection("users").document(userId).collection("pets").document(petId).collection("medicalHistory").document("medicalData")
         
         let medicalData: [String: Any] = [
             "vetVisitDates": vetVisitDate,
@@ -139,6 +138,40 @@ class CreatePetUserModel: ObservableObject {
             print("Saving medical history for petId: \(petId)")
         } catch {
             print("Failed to save medical history: \(error.localizedDescription)")
+        }
+    }
+    // delete pet 
+    func deletePet(petId: String, userId: String, viewModel: AuthViewModel) async throws {
+        guard !userId.isEmpty, !petId.isEmpty else {
+            print("Error: User ID or Pet ID is empty.")
+            return
+        }
+        let petRef = db.collection("users").document(userId).collection("pets").document(petId)
+        let healthRef = petRef.collection("healthInfo")
+        let medicalRef = petRef.collection("medicalHistory")
+        
+        
+        do {
+            let healthDocs = try await healthRef.getDocuments() // deletes doc from healthinfo
+            for doc in healthDocs.documents {
+                try await doc.reference.delete()
+            }
+            let medicalDocs = try await medicalRef.getDocuments() // deleted docs from medical history
+            for doc in medicalDocs.documents {
+                try await doc.reference.delete()
+            }
+            try await petRef.delete() // delete pet doc from firestore
+            
+            print("Successfully deleted petId: \(petId)")
+            
+            await MainActor.run {
+                if let index = viewModel.currentUser?.pets.firstIndex(where: { $0.id == petId}) {
+                    viewModel.currentUser?.pets.remove(at: index)
+                }
+            }
+            
+        } catch {
+            print("Failed to delete pet: \(error.localizedDescription)")
         }
     }
     

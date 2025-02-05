@@ -13,11 +13,17 @@ struct UserProfileView: View {
     @Environment(\.dismiss) var dismiss
 
     @State private var navigateToCreatePetView = false
-//    @State private var navigateToPetProfileView = false
     @State private var navigateToHomePageView = false
-    @State private var showDeleteAlert = false  // State to control the alert
+    @State private var showDeleteAlert = false
+    @State private var deleteAction: DeleteAction? = nil // Determines which delete action is selected
+    @State private var petToDelete: String? = nil // Will store pet id
 
     let pet: Pet
+
+    enum DeleteAction {
+        case deleteAccount
+        case deletePet
+    }
 
     var body: some View {
         NavigationStack {
@@ -26,7 +32,7 @@ struct UserProfileView: View {
                     .edgesIgnoringSafeArea(.all)
 
                 if viewModel.userSession == nil {
-//                    HomePageView(pet: pet)
+                    // HomePageView(pet: pet)
                 } else if let user = viewModel.currentUser {
                     List {
                         // Profile Header
@@ -63,8 +69,12 @@ struct UserProfileView: View {
                                     if let pets = viewModel.currentUser?.pets {
                                         ForEach(pets, id: \.id) { pet in
                                             NavigationLink(destination: PetProfileView(pet: pet)) {
-                                                PetCardView(pet: pet)
-                                                    .frame(width: 130, height: 100)
+                                                PetCardView(pet: pet) {
+                                                    deleteAction = .deletePet
+                                                    petToDelete = pet.id
+                                                    showDeleteAlert = true
+                                                }
+                                                .frame(width: 130, height: 100)
                                             }
                                             .buttonStyle(PlainButtonStyle())
                                         }
@@ -83,11 +93,11 @@ struct UserProfileView: View {
                         Section("Settings") {
                             SettingRowView(imageName: "arrow.left.circle.fill", title: "Sign Out", tintColor: .paleHazel) {
                                 viewModel.SignOut()
-//                                navigateToHomePageView = true
                             }
 
                             SettingRowView(imageName: "xmark.circle.fill", title: "Delete Account", tintColor: .red) {
-                                showDeleteAlert = true  // Show alert before deleting
+                                deleteAction = .deleteAccount
+                                showDeleteAlert = true
                             }
                         }
                         .listRowBackground(Color.white.opacity(0.5))
@@ -111,30 +121,68 @@ struct UserProfileView: View {
                 }
             }
         }
-        .alert("Are you sure?", isPresented: $showDeleteAlert) {
-            Button("Cancel", role: .cancel) {}
-            Button("Delete", role: .destructive) {
-                viewModel.deleteAccount()
-                navigateToHomePageView = true
+        .alert(isPresented: $showDeleteAlert) {
+            switch deleteAction {
+            case .deleteAccount:
+                return Alert(
+                    title: Text("Are you sure?"),
+                    message: Text("This action cannot be undone."),
+                    primaryButton: .destructive(Text("Delete")) {
+                        viewModel.deleteAccount()
+                        navigateToHomePageView = true
+                    },
+                    secondaryButton: .cancel()
+                )
+
+            case .deletePet:
+                return Alert(
+                    title: Text("Delete Pet?"),
+                    message: Text("Are you sure you want to delete this pet? This action cannot be undone."),
+                    primaryButton: .destructive(Text("Delete")) {
+                        if let petId = petToDelete, let userId = viewModel.currentUser?.id {
+                            Task {
+                                try await petViewModel.deletePet(petId: petId, userId: userId, viewModel: viewModel)
+                            }
+                        }
+                    },
+                    secondaryButton: .cancel()
+                )
+
+            case .none:
+                return Alert(title: Text("Unknown Error")) // Fallback case
             }
-        } message: {
-            Text("This action cannot be undone.")
         }
     }
 }
 
+
 // MARK: - Pet Card View
 struct PetCardView: View {
     let pet: Pet // Ensure Pet conforms to Identifiable
-
+    let onDelete: () -> Void
+    
     var body: some View {
         VStack {
-            Image(systemName: "pawprint.circle.fill") // Replace with pet image 
-                .resizable()
-                .scaledToFit()
-                .frame(width: 80, height: 80)
-//                .foregroundColor(.pink)
-                .foregroundColor(.paleHazel)
+            ZStack(alignment: .topTrailing) {
+                Image(systemName: "pawprint.circle.fill") // Replace with pet image
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 80, height: 80)
+    //                .foregroundColor(.pink)
+                    .foregroundColor(.paleHazel)
+                
+                Button(action: {
+                    onDelete()
+                }) {
+                    Image(systemName: "minus.circle") //minus.circle, minus
+                        .resizable()
+                        .foregroundColor(.platinum)
+                        .frame(width:20, height: 20)
+                        .background(Color.white.clipShape(Circle()))
+
+                }
+                .offset(x: 5, y: -5)
+            }
             
             Text(pet.name)
                 .font(.custom("Inter", size: 13, relativeTo: .caption))
