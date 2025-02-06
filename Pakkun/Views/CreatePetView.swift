@@ -17,6 +17,7 @@ struct CreatePetView: View {
     @State private var navigateToHealthInfo = false
     @State private var showErrorAlert = false
     @State private var errorMessage: String = ""
+    @State private var showDiscardAlert = false
     
     @State var changeProfileImage = false
     @State private var openCameraRoll = false
@@ -167,7 +168,8 @@ struct CreatePetView: View {
                         HStack(spacing: 20) {
                             Button {
 //                                petViewModel.reset()
-                                dismiss()
+//                                dismiss()
+                                showDiscardAlert = true
                             } label: {
                                 Text("Back")
                                     .fontWeight(.semibold)
@@ -175,6 +177,15 @@ struct CreatePetView: View {
                                     .foregroundColor(.black)
                                     .frame(maxWidth: .infinity, minHeight: 44)
                                     .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
+                            }
+                            .alert("Discard Pet Information?", isPresented: $showDiscardAlert) {
+                                Button("Cancel", role: .cancel) {}
+                                Button("Back me back to User Profile", role: .destructive) {
+                                    petViewModel.resetPetData()
+                                    dismiss()
+                                }
+                            } message: {
+                                Text("If you go back now, any entered pet information will not be saved.")
                             }
 
                             Button {
