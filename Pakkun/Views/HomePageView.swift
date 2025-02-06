@@ -10,9 +10,9 @@ import SwiftUI
 struct HomePageView: View {
     @State private var email = ""
     @State private var password = ""
-    @EnvironmentObject var viewModel: AuthViewModel
-//    @State private var navigateToUserProfileView = false
     @State private var showUserProfile = false
+    
+    @EnvironmentObject var viewModel: AuthViewModel
     
     let pet: Pet
 
@@ -93,20 +93,18 @@ struct HomePageView: View {
                     } label: {
                         HStack {
                             Text("Create a New Account")
-                                .kerning(3)
                                 .fontWeight(.semibold)
-                                .font(.custom("Inter", size: 20, relativeTo: .headline))
+                                .kerning(3)
+                                .font(.custom("Inter", size: 20/*, relativeTo: .headline*/))
                         }
                         .foregroundColor(.black)
-                        .frame(height: 35)
                         .frame(maxWidth: .infinity)
+                        .frame(height: 35)
                         .background(Color(.platinum))
                         .cornerRadius(20)
                     }
                 }
             }
-//            .navigationDestination(isPresented: $navigateToUserProfileView) {
-//                UserProfileView(pet: pet)
             .fullScreenCover(isPresented: $showUserProfile) {
                 UserProfileView(pet: pet)
             }

@@ -9,7 +9,6 @@ import SwiftUI
 struct PetProfileView: View {
     @State private var navigateToSettingView = false
     @EnvironmentObject var petViewModel: CreatePetUserModel
-//    @State private var navigateToPetMedicalTabView = false
     
     let pet: Pet
     
@@ -33,7 +32,7 @@ struct PetProfileView: View {
                         Spacer()
                         Button(action: {
                             navigateToSettingView = true
-                            print("Side Menu Tapped") // Add action here
+                            print("Side Menu Tapped")
                         }) {
                             Image(systemName: "line.horizontal.3")
                                 .font(.title)
@@ -48,6 +47,14 @@ struct PetProfileView: View {
                     
                     //Profile Image and Name
                     VStack(spacing: 10) {
+                        
+                        Text("Hi \(pet.name) ♡") // \(name)
+                            .font(.custom("Inter", size: 35, relativeTo: .title))
+                            .kerning(2)
+                            .fontWeight(.bold)
+                            .foregroundColor(.black)
+                            .padding()
+                        
                         if let loadedImage = petViewModel.loadImage(for: petViewModel.petId) {
                             Image(uiImage: loadedImage)
                                 .resizable()
@@ -72,29 +79,26 @@ struct PetProfileView: View {
 //                            .clipShape(Circle())
 //                            .overlay(Circle().stroke(Color.white, lineWidth: 4))
 //                            .shadow(radius: 5)
-                        
-                        Text("Hi \(pet.name)") // \(name)
-                            .font(.custom("Inter", size: 30, relativeTo: .title))
-                            .kerning(2)
-                            .fontWeight(.bold)
-                            .foregroundColor(.black)
                     }
-                    .padding(.top, -15) // Moves it lower
+//                    .padding(.top, -15) // Moves it lower
+                    .padding(.top, 30)
                     
                     // Info Box
                     VStack(alignment: .center, spacing: 5) {
-                        Text("Breed: \(pet.selectedBreed)")
                         if let dateOfBirth = pet.dateOfBirth {
                             Text("Date of Birth: \(dateOfBirth, formatter: dateFormatter)")
                         } else {
                             Text("Date of Birth: N/A") // If dateOfBirth is nil
                         }
                         Text("Zodiac: \(pet.zodiac)")
+                        Text("Breed: \(pet.selectedBreed)")
                         Text("Favorite Snack: \(pet.favoriteSnack)")
                     }
-                    .font(.subheadline)
+//                    .font(.subheadline)
+                    .kerning(1)
+                    .font(.custom("Inter", size: 16, relativeTo: .subheadline))
                     .padding()
-                    .background(RoundedRectangle(cornerRadius: 15).fill(Color(red: 0.96, green: 0.96, blue: 0.91)))
+                    .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.5)))
                     .padding(.horizontal)
                     
                     Spacer()

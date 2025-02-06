@@ -69,13 +69,10 @@ class CreatePetUserModel: ObservableObject {
             print("Saving pet for userId: \(userId), petId: \(petId)")
             
             await MainActor.run {
-                self.petId = petId // petId is updated on the main thread
+//                self.petId = petId // petId is updated on the main thread
                 self.currentPet = newPet
             }
-            
-            await MainActor.run {
-                self.resetPetData()
-            }
+
             
             try await saveHealthInfo(petId: petId,
                                      userId: userId,
@@ -86,6 +83,10 @@ class CreatePetUserModel: ObservableObject {
                                      selectedWeight: selectedWeight)
             
             try await saveMedicalHistory(petId: petId, userId: userId)
+            
+            await MainActor.run {
+                self.resetPetData()
+            }
             
         } catch {
             print("Failed to save pet: \(error.localizedDescription)")

@@ -12,10 +12,11 @@ struct UserRegisterPageView: View {
     @State private var fullname: String = ""
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
+    @State private var navigateToUserProfileView = false
     
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: AuthViewModel
-    @State private var navigateToUserProfileView = false
+    
     
     let pet: Pet
     
@@ -42,6 +43,7 @@ struct UserRegisterPageView: View {
                               title: "Password",
                               placeholder: "Enter your password",
                               isSecureField: true)
+                    
                     ZStack(alignment: .trailing) {
                         InputView(text: $confirmPassword,
                                   title: "Confirm Password",
@@ -67,7 +69,6 @@ struct UserRegisterPageView: View {
                 .padding(.top, 12)
                 
                 Spacer()
-                
                 // Sign up button
                 Button {
                     //                    print("Sign user up..")
@@ -110,6 +111,7 @@ struct UserRegisterPageView: View {
                             .fontWeight(.semibold)
                     }
                     .font(.system(size: 14))
+                    .background(Color(.clear))
                 }
                 .padding(.bottom, 32)
             }
