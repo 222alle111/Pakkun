@@ -97,7 +97,6 @@ struct PetMedicalHistoryView: View {
             WelcomePageView(pet: pet)
         }
     }
-//    private func 
 }
 
 // MARK: - Section View

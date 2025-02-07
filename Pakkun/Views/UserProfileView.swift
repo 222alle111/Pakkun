@@ -80,6 +80,7 @@ struct UserProfileView: View {
                                         }
                                     }
                                     Button(action: {
+                                        petViewModel.resetPetData() 
                                         navigateToCreatePetView = true
                                     }) {
                                         AddPetCardView()
@@ -128,8 +129,12 @@ struct UserProfileView: View {
                     title: Text("Are you sure?"),
                     message: Text("This action cannot be undone."),
                     primaryButton: .destructive(Text("Delete")) {
-                        viewModel.deleteAccount()
-                        navigateToHomePageView = true
+                        Task {
+                            await viewModel.deleteAccount()
+                            navigateToHomePageView = true
+                        }
+//                        viewModel.deleteAccount()
+//                        navigateToHomePageView = true
                     },
                     secondaryButton: .cancel()
                 )
@@ -186,11 +191,11 @@ struct PetCardView: View {
             
             Text(pet.name)
                 .font(.custom("Inter", size: 13, relativeTo: .caption))
-                .foregroundColor(.primary)
+                .foregroundColor(.black)
                 .kerning(2)
         }
         .padding()
-        .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.7)))
     }
 }
 
@@ -206,11 +211,11 @@ struct AddPetCardView: View {
             
             Text("Add Pet")
                 .font(.custom("Inter", size: 13, relativeTo: .caption))
-                .foregroundColor(.primary)
+                .foregroundColor(.black)
                 .kerning(2)
         }
         .padding()
-        .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.7)))
     }
 }
 

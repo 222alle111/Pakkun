@@ -55,7 +55,7 @@ struct PetProfileView: View {
                             .foregroundColor(.black)
                             .padding()
                         
-                        if let loadedImage = petViewModel.loadImage(for: petViewModel.petId) {
+                        if let loadedImage = petViewModel.loadImageFromDocuments(petId: petViewModel.petId) {
                             Image(uiImage: loadedImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)

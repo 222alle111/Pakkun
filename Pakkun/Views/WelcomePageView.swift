@@ -26,9 +26,8 @@ struct WelcomePageView: View {
                         .foregroundColor(.black)
                         .padding(.top, 20)
                         .padding(.bottom, 50)
-                    // Maybe change the space between text and image to more in the middle. Image should be in the middle
-                    //                Spacer()
-                    if let loadedImage = petViewModel.loadImage(for: petViewModel.petId) {
+
+                    if let loadedImage = petViewModel.loadImageFromDocuments(petId: petViewModel.petId) {
 //                        print("Successfully loaded image for petId: \(petViewModel.petId)")
                         Image(uiImage: loadedImage)
                             .resizable()

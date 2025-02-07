@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 
+@MainActor
 class CreatePetUserModel: ObservableObject {
     @Published var name: String = ""
     @Published var dateOfBirth: Date = Date()
@@ -68,11 +69,13 @@ class CreatePetUserModel: ObservableObject {
             print("Pet successfully saved with ID: \(petId)")
             print("Saving pet for userId: \(userId), petId: \(petId)")
             
-            await MainActor.run {
+//            await MainActor.run {
 //                self.petId = petId // petId is updated on the main thread
-                self.currentPet = newPet
-            }
-
+//                self.currentPet = newPet
+//            }
+            self.petId = petId // petId is updated on the main thread
+            self.currentPet = newPet
+            
             
             try await saveHealthInfo(petId: petId,
                                      userId: userId,
@@ -83,10 +86,10 @@ class CreatePetUserModel: ObservableObject {
                                      selectedWeight: selectedWeight)
             
             try await saveMedicalHistory(petId: petId, userId: userId)
-            
-            await MainActor.run {
-                self.resetPetData()
-            }
+
+//            await MainActor.run {
+//                self.resetPetData()
+//            }
             
         } catch {
             print("Failed to save pet: \(error.localizedDescription)")
@@ -177,39 +180,58 @@ class CreatePetUserModel: ObservableObject {
     }
     
     // takes UIImage, converts it to JPEG, and saves it in the app's Documents directory
-    func saveImageToDocuments(image: UIImage, for petId: String) -> String? {
-        let filename = "\(petId).jpg"
-        let fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(filename)
-
-        print("Saving image to path: \(fileURL.path)")
-
-        // Check if directory exists
-        let directory = fileURL.deletingLastPathComponent()
-        if !FileManager.default.fileExists(atPath: directory.path) {
-            print(" Directory does not exist. Creating now...")
+    func saveImageToDocuments(image: UIImage, petId: String) -> URL? {
+        let filename = getDocumentsDirectory().appendingPathComponent("\(petId).jpg")
+        
+        if let data = image.jpegData(compressionQuality: 0.8) {
             do {
-                try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
-                print("Directory created.")
+                try data.write(to: filename)
+                return filename
             } catch {
-                print(" Failed to create directory: \(error.localizedDescription)")
-                return nil
+                print("Error saving image: \(error)")
             }
         }
-
-        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
-            print("Failed to convert image to JPEG data")
-            return nil
-        }
-
-        do {
-            try imageData.write(to: fileURL)
-            print("Image successfully saved at: \(fileURL.path)")
-            return fileURL.path
-        } catch {
-            print("Error saving image: \(error.localizedDescription)")
-            return nil
-        }
+        return nil
     }
+
+    func getDocumentsDirectory() -> URL {
+        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    }
+    
+    
+//    func saveImageToDocuments(image: UIImage, for petId: String) -> String? {
+//        let filename = "\(petId).jpg"
+//        let fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(filename)
+//
+//        print("Saving image to path: \(fileURL.path)")
+//
+//        // Check if directory exists
+//        let directory = fileURL.deletingLastPathComponent()
+//        if !FileManager.default.fileExists(atPath: directory.path) {
+//            print(" Directory does not exist. Creating now...")
+//            do {
+//                try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+//                print("Directory created.")
+//            } catch {
+//                print(" Failed to create directory: \(error.localizedDescription)")
+//                return nil
+//            }
+//        }
+//
+//        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+//            print("Failed to convert image to JPEG data")
+//            return nil
+//        }
+//
+//        do {
+//            try imageData.write(to: fileURL)
+//            print("Image successfully saved at: \(fileURL.path)")
+//            return fileURL.path
+//        } catch {
+//            print("Error saving image: \(error.localizedDescription)")
+//            return nil
+//        }
+//    }
 //    func saveImageToDocuments(image: UIImage, for petId: String) -> String? {
 //        // UUID().uuidString + ".jpg" generate a unique filename
 //        let filename = "\(petId).jpg"// save the image with petId as the filename
@@ -231,19 +253,30 @@ class CreatePetUserModel: ObservableObject {
 //        }
 //    }
     // load the image in other views
-    func loadImage(for petId: String) -> UIImage? {
-        let filename = "\(petId).jpg" // looks for the image with petId filename
-        let fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(filename)
-        print("Trying to load image for petId: \(petId) from \(fileURL.path)")
+    func loadImageFromDocuments(petId: String) -> UIImage? {
+        let filename = getDocumentsDirectory().appendingPathComponent("\(petId).jpg")
+        print("Attempting to load image from: \(filename.path)")
         
-        if FileManager.default.fileExists(atPath: fileURL.path) {
-            print("Loading image from: \(fileURL.path)")
-            return UIImage(contentsOfFile: fileURL.path)
-        } else {
-            print("No image found for petId: \(petId) at path: \(fileURL.path)")
-            return nil
+        if FileManager.default.fileExists(atPath: filename.path) {
+            return UIImage(contentsOfFile: filename.path)
         }
+        return nil
     }
+    
+    
+//    func loadImage(for petId: String) -> UIImage? {
+//        let filename = "\(petId).jpg" // looks for the image with petId filename
+//        let fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(filename)
+//        print("Trying to load image for petId: \(petId) from \(fileURL.path)")
+//        
+//        if FileManager.default.fileExists(atPath: fileURL.path) {
+//            print("Loading image from: \(fileURL.path)")
+//            return UIImage(contentsOfFile: fileURL.path)
+//        } else {
+//            print("No image found for petId: \(petId) at path: \(fileURL.path)")
+//            return nil
+//        }
+//    }
     
     func resetPetData() {
         self.name = ""
@@ -265,6 +298,7 @@ class CreatePetUserModel: ObservableObject {
         self.vaccinations = []
         self.medications = []
         
+//        self.currentPet = nil
         self.imagePath = ""
         }
 }

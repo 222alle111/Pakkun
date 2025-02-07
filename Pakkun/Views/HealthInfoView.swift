@@ -20,6 +20,10 @@ struct HealthInfoView: View {
     @State private var showErrorAlert = false
     @State private var errorMessage: String = ""
     
+//    @State var changeProfileImage = false
+//    @State private var openCameraRoll = false
+//    @State private var imageSelected: UIImage? = nil // created state variable called imageSelected where it will store the image selected in a UIimage format
+    
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var petViewModel: CreatePetUserModel
     @EnvironmentObject var viewModel: AuthViewModel
@@ -47,6 +51,34 @@ struct HealthInfoView: View {
                 }
                     .frame(maxWidth: .infinity)
                     .padding(.top, 30)
+//                ZStack {
+//                    Button(action: {
+//                        openCameraRoll = true
+//                    }, label: {
+//                        if changeProfileImage, let validImage = imageSelected {
+//                            Image(uiImage: validImage)
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fill)
+//                                .frame(width: 130, height: 130)
+//                                .clipShape(Circle())
+//                                .overlay(Circle().stroke(Color.black, lineWidth: 1))
+//                        } else {
+//                            Image("PetProfile")
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fill)
+//                                .frame(width: 130, height: 130)
+//                                .clipShape(Circle())
+//                                .overlay(Circle().stroke(Color.black, lineWidth: 1))
+//                        }
+//                    })
+//                    
+//                    Image(systemName: "plus")
+//                        .frame(width: 30, height: 30)
+//                        .foregroundColor(.black)
+//                        .background(Color.white.opacity(0.7))
+//                        .clipShape(Circle())
+//                        .offset(x: 40, y: 40)
+//                }
                 
                 Text("Please log your pet’s activities, food log, and medical visits.")
                     .kerning(1)
@@ -171,7 +203,7 @@ struct HealthInfoView: View {
                                         selectedWeight: selectedWeight
                                     )
                                     print("Saved pet health info")
-                                    print("183")
+//                                    print("183")
                                 } catch {
                                     print("Error saving pet health info: \(error.localizedDescription)")
                                 }
@@ -207,7 +239,26 @@ struct HealthInfoView: View {
                 .environmentObject(petViewModel)
                 .environmentObject(viewModel)
         }
+//        .sheet(isPresented: $openCameraRoll) {
+//            ImagePicker(selectedImage: $imageSelected,
+//                        sourceType: .photoLibrary)
+//            .onDisappear {
+//                if let validImage = imageSelected {
+//                    if let savedPath = petViewModel.saveImageToDocuments(image: validImage, petId: petViewModel.petId) {
+//                        DispatchQueue.main.async {
+//                            petViewModel.imagePath = savedPath.path
+//                            print("Image path set to: \(petViewModel.imagePath)")
+//                            changeProfileImage = true
+//                        }
+//                    }
+//                } else {
+//                    changeProfileImage = false
+//                }
+//            }
+//            .ignoresSafeArea()
+//        }
     }
+    
     // Validation
     private func validateHealthInfo() -> Bool {
         if foodBrand.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {

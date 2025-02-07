@@ -14,7 +14,7 @@ protocol AuthenticationFormProtocol {
 
 @MainActor
 class AuthViewModel: ObservableObject {
-    @Published var userSession: FirebaseAuth.User? //going to tell us wheater or not we have a user loogged in. when we open our app it knows whether or not to route us to the login flow or profile view. firebase user object
+    @Published var userSession: FirebaseAuth.User? //going to tell us wheater or not we have a user loogged in. when we open our app it                                         knows whether or not to route us to the login flow or profile view. firebase user object
     @Published var currentUser: UserModel? // my user i created
     
     init() {
@@ -65,22 +65,45 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    func deleteAccount() {
-        do {
-            let user = Auth.auth().currentUser
-            
-            user?.delete { error in
-                if let error = error {
-                    print("Failed to delete user with error: \(error.localizedDescription)")
-                } else {
-                         self.userSession = nil
-                         self.currentUser = nil
-                }
-                    
-                }
-            }
-            
+    func deleteAccount() async {
+        guard let user = Auth.auth().currentUser else {
+            print("No authenticated user found.")
+            return
         }
+        
+        let userId = user.uid 
+        
+        do {
+            try await Firestore.firestore().collection("users").document(userId).delete() // deletes use data from firestore
+            print("Deleted user data from firestore")
+            
+            try await user.delete()
+            
+            await MainActor.run {
+                self.userSession = nil
+                self.currentUser = nil
+            }
+            print("User account deleted successfully.")
+            
+        } catch {
+            print("Failed to delete user: \(error.localizedDescription)")
+        }
+    }
+//    func deleteAccount() {
+//        do {
+//            let user = Auth.auth().currentUser
+//            
+//            user?.delete { error in
+//                if let error = error {
+//                    print("Failed to delete user with error: \(error.localizedDescription)")
+//                } else {
+//                    self.userSession = nil
+//                    self.currentUser = nil
+//                }
+//                
+//            }
+//        }
+//    }
     
     func fetchUser() async {
         guard let uid = Auth.auth().currentUser?.uid else { return }

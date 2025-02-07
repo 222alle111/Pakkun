@@ -42,6 +42,7 @@
 		4AC356492D418181004EC58A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AC356422D418181004EC58A /* Assets.xcassets */; };
 		4AC3564A2D418181004EC58A /* PakkunApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC356452D418181004EC58A /* PakkunApp.swift */; };
 		4AC3564C2D418181004EC58A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC356432D418181004EC58A /* ContentView.swift */; };
+		4AC4921C2D55884D0023A59B /* ProfilePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC4921B2D55884D0023A59B /* ProfilePhotoView.swift */; };
 		4AE2291B2D4DC34B0074BD01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4AE2291A2D4DC34B0074BD01 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +95,7 @@
 		4AC356422D418181004EC58A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4AC356432D418181004EC58A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4AC356452D418181004EC58A /* PakkunApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PakkunApp.swift; sourceTree = "<group>"; };
+		4AC4921B2D55884D0023A59B /* ProfilePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoView.swift; sourceTree = "<group>"; };
 		4AE2291A2D4DC34B0074BD01 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,6 +188,7 @@
 			children = (
 				4A9177782D4322700034321A /* PetProfileView.swift */,
 				4A91777A2D4322BB0034321A /* CreatePetView.swift */,
+				4AC4921B2D55884D0023A59B /* ProfilePhotoView.swift */,
 				4A91777C2D4322E50034321A /* HealthInfoView.swift */,
 				4A9177822D4343F70034321A /* HeaderView.swift */,
 				4A9177862D44A5CD0034321A /* PetMedicalHistoryView.swift */,
@@ -440,6 +443,7 @@
 				4A54C35B2D49765600BD059A /* AuthViewModel.swift in Sources */,
 				4A54C3532D49666400BD059A /* UserProfileView.swift in Sources */,
 				4A9177662D42C5560034321A /* Utilities.swift in Sources */,
+				4AC4921C2D55884D0023A59B /* ProfilePhotoView.swift in Sources */,
 				4A654AFD2D5169C2005C359D /* PetMedicalTabView.swift in Sources */,
 				4A91775F2D42BA100034321A /* SignInEmailView.swift in Sources */,
 				4A9177832D4343F70034321A /* HeaderView.swift in Sources */,
