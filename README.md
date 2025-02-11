@@ -19,7 +19,6 @@ Google Firebase
 
 1. Create a Firebase project,
 
-
 ## Environment Set Up 
 
 1. In Xcode, with your app project open, navigate to File > Swift Packages > Add Package Dependency.
@@ -27,4 +26,13 @@ Google Firebase
    `https://github.com/firebase/firebase-ios-sdk`
 3. Choose the Firestore library.
 4. When finished, Xcode will automatically begin resolving and downloading your dependencies in the background.
+
+## Troubleshooting 
+### Clean and Rebuild the Project (MAC)
+If the package is installed correctly but Xcode still can't find it:
+
+1. Clean Build Folder:
+   - In Xcode, press Shift + Command + K.
+2. Close and Reopen Xcode.
+3. Build the project again (Command + B).
   
