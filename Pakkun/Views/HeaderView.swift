@@ -11,6 +11,7 @@ struct HeaderView: View {
     
     var body: some View {
         VStack(spacing: 20) { // Adjust spacing between texts
+            
             Text("WELCOME TO PAKKUN")
                 .kerning(7)
                 .font(.custom("Inter", size: 32, relativeTo: .largeTitle))

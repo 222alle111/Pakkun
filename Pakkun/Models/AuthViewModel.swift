@@ -52,16 +52,9 @@ class AuthViewModel: ObservableObject {
             
             await fetchUser() // we need to fetch the data that was just uploaded to firebase so it can be display on the screen
             
-//            self.persistImageToStorage()
-            
         } catch {
             print("Failed to create user with error: \(error.localizedDescription)")
         }
-//        
-//        private func persistImageToStorage() {
-//            let fileName = 
-//            Storage.storage().reference(withPath: )
-//        }
     }
     
     
@@ -99,21 +92,6 @@ class AuthViewModel: ObservableObject {
             print("Failed to delete user: \(error.localizedDescription)")
         }
     }
-//    func deleteAccount() {
-//        do {
-//            let user = Auth.auth().currentUser
-//            
-//            user?.delete { error in
-//                if let error = error {
-//                    print("Failed to delete user with error: \(error.localizedDescription)")
-//                } else {
-//                    self.userSession = nil
-//                    self.currentUser = nil
-//                }
-//                
-//            }
-//        }
-//    }
     
     func fetchUser() async {
         guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -123,7 +101,7 @@ class AuthViewModel: ObservableObject {
         
         if let userData = try? snapshot?.data(as: UserModel.self) {
             var user = userData
-//            self.currentUser = userData
+            
             do {
                 let pets = try await fetchPetsData(forUserId: uid) // Fetch pets
                 user.pets = pets  // Assign the fetched pets to the user model

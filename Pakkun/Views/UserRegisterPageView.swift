@@ -26,6 +26,11 @@ struct UserRegisterPageView: View {
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
+                Image("Pakkun")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 100, height: 120)
+                    .padding(.top, 16)
                 Spacer()
                 
                 // Form fields
@@ -71,8 +76,6 @@ struct UserRegisterPageView: View {
                 Spacer()
                 // Sign up button
                 Button {
-                    //                    print("Sign user up..")
-                    //                    print(viewModel)
                     Task {
                         try await viewModel.createUser(withEmail: email,
                                                        password: password,
@@ -111,9 +114,10 @@ struct UserRegisterPageView: View {
                             .fontWeight(.semibold)
                     }
                     .font(.system(size: 14))
-                    .background(Color(.clear))
+//                    .background(Color(.clear))
                 }
                 .padding(.bottom, 32)
+                .background(Color(.clear))
             }
         }
         .navigationDestination(isPresented: $navigateToUserProfileView) {

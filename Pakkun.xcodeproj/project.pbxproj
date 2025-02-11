@@ -44,6 +44,7 @@
 		4AC3564C2D418181004EC58A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC356432D418181004EC58A /* ContentView.swift */; };
 		4AC4921C2D55884D0023A59B /* ProfilePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC4921B2D55884D0023A59B /* ProfilePhotoView.swift */; };
 		4AE2291B2D4DC34B0074BD01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4AE2291A2D4DC34B0074BD01 /* GoogleService-Info.plist */; };
+		4AF9427B2D5B2756002CD280 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4AF9427A2D5B2756002CD280 /* SDWebImageSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +121,7 @@
 				4AC3562C2D409529004EC58A /* FirebaseAnalytics in Frameworks */,
 				4AC356302D409529004EC58A /* FirebaseCore in Frameworks */,
 				4AC356322D409529004EC58A /* FirebaseDatabase in Frameworks */,
+				4AF9427B2D5B2756002CD280 /* SDWebImageSwiftUI in Frameworks */,
 				4A9177442D4208EF0034321A /* GoogleSignInSwift in Frameworks */,
 				4AC356342D409529004EC58A /* FirebaseFirestore in Frameworks */,
 				4AC3562E2D409529004EC58A /* FirebaseAuth in Frameworks */,
@@ -226,6 +228,7 @@
 				4AC356142D408157004EC58A /* PakkunUITests */,
 				4AC355F82D408151004EC58A /* Products */,
 				4AC356462D418181004EC58A /* Pakkun */,
+				4AF942792D5B2756002CD280 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -266,6 +269,13 @@
 			path = Pakkun;
 			sourceTree = "<group>";
 		};
+		4AF942792D5B2756002CD280 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -291,6 +301,7 @@
 				4AC356352D409529004EC58A /* FirebaseStorage */,
 				4A9177412D4208EF0034321A /* GoogleSignIn */,
 				4A9177432D4208EF0034321A /* GoogleSignInSwift */,
+				4AF9427A2D5B2756002CD280 /* SDWebImageSwiftUI */,
 			);
 			productName = Pakkun;
 			productReference = 4AC355F72D408151004EC58A /* Pakkun.app */;
@@ -377,6 +388,7 @@
 			packageReferences = (
 				4AC3562A2D409529004EC58A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				4A9177402D4208EF0034321A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				4AF942782D5B24E8002CD280 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4AC355F82D408151004EC58A /* Products */;
@@ -788,6 +800,14 @@
 				minimumVersion = 11.7.0;
 			};
 		};
+		4AF942782D5B24E8002CD280 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -830,6 +850,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4AC3562A2D409529004EC58A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		4AF9427A2D5B2756002CD280 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4AF942782D5B24E8002CD280 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

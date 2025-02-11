@@ -95,14 +95,14 @@ struct HomePageView: View {
                             Text("Create a New Account")
                                 .fontWeight(.semibold)
                                 .kerning(3)
-                                .font(.custom("Inter", size: 20/*, relativeTo: .headline*/))
+                                .font(.custom("Inter", size: 20))
                         }
                         .foregroundColor(.black)
                         .frame(maxWidth: .infinity)
                         .frame(height: 35)
-                        .background(Color(.platinum))
-                        .cornerRadius(20)
                     }
+                    .background(Color(.platinum))
+                    .cornerRadius(20)
                 }
             }
             .fullScreenCover(isPresented: $showUserProfile) {

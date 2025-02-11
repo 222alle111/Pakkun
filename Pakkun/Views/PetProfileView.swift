@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import FirebaseFirestore
+import SDWebImageSwiftUI
 
 struct PetProfileView: View {
     @State private var navigateToSettingView = false
@@ -58,21 +59,33 @@ struct PetProfileView: View {
                         
                         // Display pet profile image
                         if let imageUrl = profileImageUrl, let url = URL(string: imageUrl) {
-                            AsyncImage(url: url) { image in
-                                image.resizable().scaledToFill()
-                            } placeholder: {
-                                ProgressView()
-                            }
-                            .frame(width: 140, height: 140)
-                            .clipShape(Circle())
-                            .overlay(Circle().stroke(Color.white, lineWidth: 4))
-                            .shadow(radius: 5)
-                            .id(imageUrl)
+                            WebImage(url: url)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 200, height: 200)
+                                .clipShape(Circle())
+                                .transition(.fade(duration: 0.1))
+//                            AsyncImage(url: url) { image in
+//                                image.resizable().scaledToFill()
+//                            } placeholder: {
+//                                ProgressView()
+//                            }
+//                            .frame(width: 140, height: 140)
+//                            .clipShape(Circle())
+//                            .overlay(Circle().stroke(Color.white, lineWidth: 4))
+//                            .shadow(radius: 5)
+//                            .id(imageUrl)
                         } else {
-                            Circle()
-                                .fill(Color.gray.opacity(0.3))
-                                .frame(width: 140, height: 140)
-                                .overlay(Image(systemName: "camera.fill").font(.largeTitle))
+                            Image("PetProfile")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 200, height: 200)
+                                .clipShape(Circle())
+                                .overlay(Circle().stroke(Color.gray, lineWidth: 2))
+//                            Circle()
+//                                .fill(Color.gray.opacity(0.3))
+//                                .frame(width: 140, height: 140)
+//                                .overlay(Image(systemName: "camera.fill").font(.largeTitle))
                         }
                     }
                     .padding(.top, 30)

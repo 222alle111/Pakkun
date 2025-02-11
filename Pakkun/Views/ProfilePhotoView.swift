@@ -80,7 +80,7 @@ struct ProfilePhotoView: View {
                     .foregroundColor(.red)
                     .padding(.top, 5)
                 }
-                .background(Color.clear)
+                .buttonStyle(PlainButtonStyle())
                 
                 Spacer()
                 
@@ -98,7 +98,6 @@ struct ProfilePhotoView: View {
                         .font(.custom("Inter", size: 20, relativeTo: .headline))
                         .foregroundColor(.black)
                         .frame(maxWidth: 100, minHeight: 44)
-//                        .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                 }
                 .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                 .padding(.top, 15)

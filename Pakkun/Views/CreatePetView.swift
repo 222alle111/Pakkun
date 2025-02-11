@@ -18,7 +18,6 @@ struct CreatePetView: View {
     @State private var showErrorAlert = false
     @State private var errorMessage: String = ""
     @State private var showDiscardAlert = false
-//    @State private var petImage: UIImage? = nil
     
     let pet: Pet
     
@@ -87,7 +86,6 @@ struct CreatePetView: View {
                         TextField("Name", text: $petViewModel.name)
                             .padding()
                             .foregroundColor(Color.primary)
-//                            .accentColor(.black)
                             .background(RoundedRectangle(cornerRadius: 15).fill(Color.white.opacity(0.5)))
                             .textFieldStyle(PlainTextFieldStyle())
                         
@@ -149,11 +147,8 @@ struct CreatePetView: View {
                                     .fontWeight(.semibold)
                                     .font(.headline)
                                     .kerning(1)
-//                                    .font(.custom("Inter", size: 18, relativeTo: .headline))
                                     .foregroundColor(.black)
                                     .frame(maxWidth: .infinity, minHeight: 44)
-//                                    .buttonStyle(PlainButtonStyle())
-//                                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.8)))
                             }
                             .buttonStyle(PlainButtonStyle())
                             .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
@@ -187,8 +182,6 @@ struct CreatePetView: View {
                                     .fontWeight(.semibold)
                                     .foregroundColor(.black)
                                     .frame(maxWidth: .infinity, minHeight: 44)
-//                                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
-//                                    .buttonStyle(PlainButtonStyle())
                             }
                             .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                             .buttonStyle(PlainButtonStyle())

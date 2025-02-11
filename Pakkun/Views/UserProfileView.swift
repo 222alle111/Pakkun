@@ -32,7 +32,6 @@ struct UserProfileView: View {
                     .edgesIgnoringSafeArea(.all)
 
                 if viewModel.userSession == nil {
-                    // HomePageView(pet: pet)
                 } else if let user = viewModel.currentUser {
                     List {
                         // Profile Header

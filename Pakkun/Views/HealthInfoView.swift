@@ -138,7 +138,6 @@ struct HealthInfoView: View {
                 // Navigation Buttons
                 HStack {
                     Button {
-//                        navigateToCreatePet = true
                         dismiss()
                     } label: {
                         Text("Back")
@@ -146,7 +145,6 @@ struct HealthInfoView: View {
                             .font(.headline)
                             .foregroundColor(.black)
                             .frame(maxWidth: .infinity, minHeight: 44)
-//                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                     }
                     .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                     // Save and navigate
@@ -174,8 +172,7 @@ struct HealthInfoView: View {
                                         walkDuration: walkDuration,
                                         selectedWeight: selectedWeight
                                     )
-                                    print("Saved pet health info")
-//                                    print("183")
+
                                 } catch {
                                     print("Error saving pet health info: \(error.localizedDescription)")
                                 }
@@ -183,15 +180,14 @@ struct HealthInfoView: View {
                                 print("Error: No current user available.")
                             }
                         }
-                        print("saved health info")
-//                        navigateToRegisterPetMedical = true
+
                     }) {
                         Text("Next")
                             .font(.headline)
                             .fontWeight(.semibold)
                             .foregroundColor(.black)
                             .frame(maxWidth: .infinity, minHeight: 44)
-//                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
+
                     }
                     .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                 }

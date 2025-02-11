@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import FirebaseFirestore
+import SDWebImageSwiftUI
 
 struct WelcomePageView: View {
     @State private var navigateToPetProfileView = false
@@ -32,19 +33,28 @@ struct WelcomePageView: View {
                     
                     // Display the pet's profile image
                     if let imageUrl = profileImageUrl, let url = URL(string: imageUrl) {
-                        AsyncImage(url: url) { image in
-                            image.resizable().scaledToFill()
-                        } placeholder: {
-                            ProgressView()
-                        }
-                        .frame(width: 200, height: 200)
-                        .clipShape(Circle())
-                        .id(imageUrl)
-                    } else {
-                        Circle()
-                            .fill(Color.gray.opacity(0.3))
+                        WebImage(url: url)
+                            .resizable()
+                            .scaledToFill()
                             .frame(width: 200, height: 200)
-                            .overlay(Image(systemName: "camera.fill").font(.largeTitle))
+                            .clipShape(Circle())
+                            .transition(.fade(duration: 0.1))
+//                        AsyncImage(url: url) { image in
+//                            image.resizable().scaledToFill()
+//                        } placeholder: {
+//                            ProgressView()
+//                        }
+//                        .frame(width: 200, height: 200)
+//                        .clipShape(Circle())
+//                        .id(imageUrl)
+                    } else {
+                        Image("PetProfile")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 200, height: 200)
+                            .clipShape(Circle())
+                            .overlay(Circle().stroke(Color.gray, lineWidth: 2))
+
                     }
                     
                     Button(action: {
@@ -55,7 +65,6 @@ struct WelcomePageView: View {
                             .font(.custom("Inter", size: 15, relativeTo: .headline))
                             .foregroundColor(.black)
                             .frame(maxWidth: .infinity, minHeight: 44)
-//                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                     }
                     .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                     .padding(.horizontal, 30)
@@ -109,82 +118,3 @@ struct WelcomePageView: View {
         }
     }
 }
-
-
-//struct WelcomePageView: View {
-//    @State private var navigateToPetProfileView = false
-//    @State private var profileImageUrl: String?/* = "https://firebasestorage.googleapis.com:443/v0/b/pakkun-c3f7c.firebasestorage.app/o/pet_images%2F10B803C8-79EF-4540-8F82-B9AC3478DFEC.jpg?alt=media&token=f9bfa643-4ba7-47b3-b2b7-e85210662aa2"*/
-//    
-//    @EnvironmentObject var petViewModel: CreatePetUserModel
-//    
-//    let pet: Pet
-//    
-//    var body: some View {
-//        ZStack {
-//            Color(.blueBell)
-//                .edgesIgnoringSafeArea(.all)
-//            
-//            VStack {
-//                if let pet = petViewModel.currentPet {
-//                    Text("Welcome \(pet.name)!")
-//                        .kerning(3)
-//                        .font(.custom("Inter", size: 30, relativeTo: .title))
-//                        .foregroundColor(.black)
-//                        .padding(.top, 20)
-//                        .padding(.bottom, 50)
-//                    
-//                    // Display the pet's profile image
-//                    if let imageUrl = profileImageUrl, let url = URL(string: imageUrl) {
-//                        AsyncImage(url: url) { image in
-//                            image.resizable().scaledToFill()
-//                        } placeholder: {
-//                            ProgressView()
-//                        }
-//                        .frame(width: 200, height: 200)
-//                        .clipShape(Circle())
-//                    } else {
-//                        Circle()
-//                            .fill(Color.gray.opacity(0.3))
-//                            .frame(width: 200, height: 200)
-//                            .overlay(Image(systemName: "camera.fill").font(.largeTitle))
-//                    }
-//                    
-//                    Button(action: {
-//                        navigateToPetProfileView = true
-//                    }) {
-//                        Text("Take me to my pet's profile ")
-//                            .kerning(1)
-//                            .font(.custom("Inter", size: 15, relativeTo: .headline))
-//                            .foregroundColor(.black)
-//                            .frame(maxWidth: .infinity, minHeight: 44)
-//                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
-//                    }
-//                    .padding(.horizontal, 30)
-//                    .padding(.top, 20)
-//                } else {
-//                    Text("No pet found!")
-//                        .font(.title2)
-//                        .foregroundColor(.red)
-//                }
-//            }
-//            .padding()
-//        }
-//        .scrollContentBackground(.hidden)
-//        .navigationBarBackButtonHidden(true)
-//        .navigationDestination(isPresented: $navigateToPetProfileView) {
-//            if let pet = petViewModel.currentPet {
-//                PetProfileView(pet: pet)
-//            }
-//        }
-//        .onAppear {
-//            if let petId = petViewModel.currentPet?.id {
-//                print("Fetching profile image for pet ID: \(petId)") // Debugging the petId
-//                fetchProfileImage(petId: petId)
-//            } else {
-//                print("No pet ID available!")
-//            }
-////            if let petId = pet.id {
-////                fetchProfileImage(petId: petId)
-//            }
-//        }
-//    }
