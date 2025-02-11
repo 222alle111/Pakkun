@@ -58,8 +58,9 @@ struct PetMedicalHistoryView: View {
                             .font(.headline)
                             .foregroundColor(.black)
                             .frame(maxWidth: .infinity, minHeight: 44)
-                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
+//                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                     }
+                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                     
                     Spacer()
                     
@@ -84,8 +85,9 @@ struct PetMedicalHistoryView: View {
                             .font(.headline)
                             .foregroundColor(.black)
                             .frame(maxWidth: .infinity, minHeight: 44)
-                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
+//                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                     }
+                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                 }
                 .padding(.horizontal, 30)
                 .padding(.bottom, 20)
@@ -118,8 +120,9 @@ struct SectionView: View {
                     Image(systemName: "plus")
                         .foregroundColor(.black)
                         .padding(8)
-                        .background(Circle().fill(Color.platinum.opacity(0.2)))
+//                        .background(Circle().fill(Color.platinum.opacity(0.2)))
                 }
+                .background(Circle().fill(Color.platinum.opacity(0.2)))
             }
 
             ForEach(items.indices, id: \.self) { index in

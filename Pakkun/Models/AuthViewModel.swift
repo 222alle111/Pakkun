@@ -7,6 +7,7 @@
 import Foundation
 import Firebase
 import FirebaseAuth
+import FirebaseStorage
 
 protocol AuthenticationFormProtocol {
     var formIsValid: Bool { get }
@@ -48,10 +49,19 @@ class AuthViewModel: ObservableObject {
             // Encode the user and save to Firestore
             let encodedUser = try Firestore.Encoder().encode(user)
             try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
+            
             await fetchUser() // we need to fetch the data that was just uploaded to firebase so it can be display on the screen
+            
+//            self.persistImageToStorage()
+            
         } catch {
             print("Failed to create user with error: \(error.localizedDescription)")
         }
+//        
+//        private func persistImageToStorage() {
+//            let fileName = 
+//            Storage.storage().reference(withPath: )
+//        }
     }
     
     
@@ -159,4 +169,5 @@ private func fetchPetsData(forUserId userId: String) async throws -> [Pet] {
             print("Error fetching pets: \(error.localizedDescription)")
         }
     }
+    
 }

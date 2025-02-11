@@ -52,6 +52,7 @@ struct UserProfileView: View {
                                         .kerning(1)
                                         .fontWeight(.semibold)
                                         .padding(.top, 4)
+                                        .foregroundColor(.black)
 
                                     Text(user.email)
                                         .font(.custom("Inter", size: 12, relativeTo: .footnote))
@@ -133,8 +134,6 @@ struct UserProfileView: View {
                             await viewModel.deleteAccount()
                             navigateToHomePageView = true
                         }
-//                        viewModel.deleteAccount()
-//                        navigateToHomePageView = true
                     },
                     secondaryButton: .cancel()
                 )
@@ -181,11 +180,11 @@ struct PetCardView: View {
                 }) {
                     Image(systemName: "minus.circle") //minus.circle, minus
                         .resizable()
-                        .foregroundColor(.platinum)
+                        .foregroundColor(.pink)
                         .frame(width:20, height: 20)
-                        .background(Color.white.clipShape(Circle()))
 
                 }
+                .buttonStyle(PlainButtonStyle())
                 .offset(x: 5, y: -5)
             }
             

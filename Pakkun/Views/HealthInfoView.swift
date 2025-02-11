@@ -19,10 +19,7 @@ struct HealthInfoView: View {
     @State private var navigateToRegisterPetMedical = false
     @State private var showErrorAlert = false
     @State private var errorMessage: String = ""
-    
-//    @State var changeProfileImage = false
-//    @State private var openCameraRoll = false
-//    @State private var imageSelected: UIImage? = nil // created state variable called imageSelected where it will store the image selected in a UIimage format
+
     
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var petViewModel: CreatePetUserModel
@@ -32,7 +29,9 @@ struct HealthInfoView: View {
     let userId: String
     let pet: Pet
         
-    let weightOptions = ["5 lbs", "10 lbs", "11 lbs", "12 lbs", "13 lbs" ,"15 lbs", "20 lbs", "22 lbs", "23 lbs", "24 lbs", "25 lbs", "26 lbs", "27 lbs", "28 lbs", "29 lbs", "30 lbs"]
+    let weightOptions = ["5 lbs", "10 lbs", "11 lbs", "12 lbs", "13 lbs" ,"15 lbs", "20 lbs",
+                         "22 lbs", "23 lbs", "24 lbs", "25 lbs", "26 lbs", "27 lbs", "28 lbs",
+                         "29 lbs", "30 lbs", "31 lbs", "32 lbs", "33 lbs", "34 lbs", "35 lbs"]
     
     var body: some View {
         ZStack {
@@ -43,7 +42,7 @@ struct HealthInfoView: View {
             VStack(spacing: 20) {
                 VStack {
                     if let pet = petViewModel.currentPet {
-                        Text("Hi \(pet.name)!") //\(name)
+                        Text("Hi \(pet.name)!")
                             .kerning(5)
                             .font(.custom("Inter", size: 30, relativeTo: .title))
                             .foregroundColor(.black)
@@ -51,34 +50,6 @@ struct HealthInfoView: View {
                 }
                     .frame(maxWidth: .infinity)
                     .padding(.top, 30)
-//                ZStack {
-//                    Button(action: {
-//                        openCameraRoll = true
-//                    }, label: {
-//                        if changeProfileImage, let validImage = imageSelected {
-//                            Image(uiImage: validImage)
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fill)
-//                                .frame(width: 130, height: 130)
-//                                .clipShape(Circle())
-//                                .overlay(Circle().stroke(Color.black, lineWidth: 1))
-//                        } else {
-//                            Image("PetProfile")
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fill)
-//                                .frame(width: 130, height: 130)
-//                                .clipShape(Circle())
-//                                .overlay(Circle().stroke(Color.black, lineWidth: 1))
-//                        }
-//                    })
-//                    
-//                    Image(systemName: "plus")
-//                        .frame(width: 30, height: 30)
-//                        .foregroundColor(.black)
-//                        .background(Color.white.opacity(0.7))
-//                        .clipShape(Circle())
-//                        .offset(x: 40, y: 40)
-//                }
                 
                 Text("Please log your pet’s activities, food log, and medical visits.")
                     .kerning(1)
@@ -175,8 +146,9 @@ struct HealthInfoView: View {
                             .font(.headline)
                             .foregroundColor(.black)
                             .frame(maxWidth: .infinity, minHeight: 44)
-                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
+//                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                     }
+                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                     // Save and navigate
                     Button(action: {
                         if validateHealthInfo() {
@@ -219,8 +191,9 @@ struct HealthInfoView: View {
                             .fontWeight(.semibold)
                             .foregroundColor(.black)
                             .frame(maxWidth: .infinity, minHeight: 44)
-                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
+//                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                     }
+                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                 }
                 .padding(.horizontal, 30)
                 .padding(.top, 20)
@@ -239,24 +212,6 @@ struct HealthInfoView: View {
                 .environmentObject(petViewModel)
                 .environmentObject(viewModel)
         }
-//        .sheet(isPresented: $openCameraRoll) {
-//            ImagePicker(selectedImage: $imageSelected,
-//                        sourceType: .photoLibrary)
-//            .onDisappear {
-//                if let validImage = imageSelected {
-//                    if let savedPath = petViewModel.saveImageToDocuments(image: validImage, petId: petViewModel.petId) {
-//                        DispatchQueue.main.async {
-//                            petViewModel.imagePath = savedPath.path
-//                            print("Image path set to: \(petViewModel.imagePath)")
-//                            changeProfileImage = true
-//                        }
-//                    }
-//                } else {
-//                    changeProfileImage = false
-//                }
-//            }
-//            .ignoresSafeArea()
-//        }
     }
     
     // Validation
