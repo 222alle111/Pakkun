@@ -8,12 +8,9 @@
 import SwiftUI
 
 struct PetMedicalHistoryView: View {
-//    @State private var vetVisitDate: [String] = [] // Store multiple vet visit dates
-//    @State private var vaccinations: [String] = [] // Store multiple vaccination dates
-//    @State private var medications: [String] = []// Store medications directly
     @State private var navigateToWelcomePage = false
     
-    @Environment(\.dismiss) var dismiss // To dismiss and go back
+    @Environment(\.dismiss) var dismiss 
     @EnvironmentObject var petViewModel: CreatePetUserModel
     @EnvironmentObject var viewModel: AuthViewModel
     
@@ -58,7 +55,6 @@ struct PetMedicalHistoryView: View {
                             .font(.headline)
                             .foregroundColor(.black)
                             .frame(maxWidth: .infinity, minHeight: 44)
-//                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                     }
                     .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                     
@@ -85,7 +81,6 @@ struct PetMedicalHistoryView: View {
                             .font(.headline)
                             .foregroundColor(.black)
                             .frame(maxWidth: .infinity, minHeight: 44)
-//                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                     }
                     .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.5)))
                 }
@@ -120,7 +115,6 @@ struct SectionView: View {
                     Image(systemName: "plus")
                         .foregroundColor(.black)
                         .padding(8)
-//                        .background(Circle().fill(Color.platinum.opacity(0.2)))
                 }
                 .background(Circle().fill(Color.platinum.opacity(0.2)))
             }

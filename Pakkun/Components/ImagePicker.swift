@@ -12,8 +12,7 @@ import UIKit
 struct ImagePicker: UIViewControllerRepresentable {
     
     @Binding var image: UIImage?
-    
-    private let controller = UIImagePickerController()
+    var sourceType: UIImagePickerController.SourceType
     
     func makeCoordinator() -> Coordinator {
         return Coordinator(parent: self)
@@ -37,12 +36,12 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
     }
     
-    func makeUIViewController(context: Context) -> some UIViewController {
-        controller.delegate = context.coordinator
-        return controller
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.delegate = context.coordinator
+        picker.sourceType = sourceType // setting the sourcetype
+        return picker
     }
     
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-        
-    }
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
 }

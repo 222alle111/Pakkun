@@ -58,10 +58,6 @@ struct ProfilePhotoView: View {
                             .frame(width: 200, height: 200)
                             .clipShape(Circle())
                             .overlay(Circle().stroke(Color.gray, lineWidth: 2))
-//                        Circle()
-//                            .fill(Color.gray.opacity(0.3))
-//                            .frame(width: 200, height: 200)
-//                            .overlay(Image(systemName: "camera.fill").font(.largeTitle))
                     }
                 }
                 .padding()
@@ -112,14 +108,17 @@ struct ProfilePhotoView: View {
                         showImagePicker = true
                     },
                     .default(Text("Take a Photo")) {
-                        sourceType = .camera
-                        showImagePicker = true
-                    },
-                    .cancel()
+                        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                            sourceType = .camera
+                            showImagePicker = true
+                        } else {
+                            print("Camera not available")
+                        }
+                    },.cancel()
                 ])
             }
             .sheet(isPresented: $showImagePicker) {
-                ImagePicker(image: $selectedImage)
+                ImagePicker(image: $selectedImage, sourceType: sourceType)
             }
         }
         .navigationDestination(isPresented: $navigateToHealthInfo) {

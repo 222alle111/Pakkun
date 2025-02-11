@@ -200,8 +200,6 @@ class CreatePetUserModel: ObservableObject {
         self.vaccinations = []
         self.medications = []
         
-//        self.currentPet = nil
-//        self.imagePath = ""
         }
     func uploadPetImage(_ image: UIImage, for userId: String, petId: String) async {
         guard let imageData = image.jpegData(compressionQuality: 0.8) else {

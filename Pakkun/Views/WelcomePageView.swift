@@ -39,14 +39,6 @@ struct WelcomePageView: View {
                             .frame(width: 200, height: 200)
                             .clipShape(Circle())
                             .transition(.fade(duration: 0.1))
-//                        AsyncImage(url: url) { image in
-//                            image.resizable().scaledToFill()
-//                        } placeholder: {
-//                            ProgressView()
-//                        }
-//                        .frame(width: 200, height: 200)
-//                        .clipShape(Circle())
-//                        .id(imageUrl)
                     } else {
                         Image("PetProfile")
                             .resizable()

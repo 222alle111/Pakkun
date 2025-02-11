@@ -56,7 +56,6 @@ struct HomePageView: View {
                             do {
                                 try await viewModel.signIn(withEmail: email, password: password)
                                 showUserProfile = true
-//                                navigateToUserProfileView = true // Trigger navigation
                             } catch {
                                 print("Login failed: \(error.localizedDescription)")
                             }
@@ -82,7 +81,7 @@ struct HomePageView: View {
                     // Navigation link to user profile
                     NavigationLink("", destination: UserProfileView(pet: pet))
                         .isDetailLink(false)
-                        .opacity(0) // Hide the link
+                        .opacity(0)
                         .disabled(!showUserProfile)
 
                     // Link to the registration page

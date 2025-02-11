@@ -31,7 +31,6 @@ struct PetProfileView: View {
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack {
-                    // Top Bar with Side Button
                     HStack {
                         Spacer()
                         Button(action: {
@@ -65,16 +64,6 @@ struct PetProfileView: View {
                                 .frame(width: 200, height: 200)
                                 .clipShape(Circle())
                                 .transition(.fade(duration: 0.1))
-//                            AsyncImage(url: url) { image in
-//                                image.resizable().scaledToFill()
-//                            } placeholder: {
-//                                ProgressView()
-//                            }
-//                            .frame(width: 140, height: 140)
-//                            .clipShape(Circle())
-//                            .overlay(Circle().stroke(Color.white, lineWidth: 4))
-//                            .shadow(radius: 5)
-//                            .id(imageUrl)
                         } else {
                             Image("PetProfile")
                                 .resizable()
@@ -82,10 +71,6 @@ struct PetProfileView: View {
                                 .frame(width: 200, height: 200)
                                 .clipShape(Circle())
                                 .overlay(Circle().stroke(Color.gray, lineWidth: 2))
-//                            Circle()
-//                                .fill(Color.gray.opacity(0.3))
-//                                .frame(width: 140, height: 140)
-//                                .overlay(Image(systemName: "camera.fill").font(.largeTitle))
                         }
                     }
                     .padding(.top, 30)
@@ -173,7 +158,6 @@ struct FeatureButton: View {
                     .font(.subheadline)
             }
             .frame(width: 140, height: 100)
-//            .background(RoundedRectangle(cornerRadius: 15).stroke(Color.platinum, lineWidth: 1))
         }
         .background(RoundedRectangle(cornerRadius: 15).stroke(Color.platinum, lineWidth: 1))
     }

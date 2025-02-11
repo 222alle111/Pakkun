@@ -152,7 +152,7 @@ struct UserProfileView: View {
                 )
 
             case .none:
-                return Alert(title: Text("Unknown Error")) // Fallback case
+                return Alert(title: Text("Unknown Error"))
             }
         }
     }
