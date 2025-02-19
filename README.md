@@ -17,7 +17,12 @@ Google Firebase
 
 ## Getting Started:
 
-1. Create a Firebase project,
+1. Create a Firebase project, In the Firebase console, click Add project, then follow the on-screen instructions to create a Firebase project.
+2. Register your app with Firebase
+   https://firebase.google.com/docs/ios/setup#register-app
+3. Add a Firebase configuration file
+   - Click Download GoogleService-Info.plist to obtain your Firebase Apple platforms config file (GoogleService-Info.plist).
+   - Move your config file into the root of your Xcode project. If prompted, select to add the config file to all targets.
 
 ## Environment Set Up 
 
@@ -26,6 +31,9 @@ Google Firebase
    `https://github.com/firebase/firebase-ios-sdk`
 3. Choose the Firestore library.
 4. When finished, Xcode will automatically begin resolving and downloading your dependencies in the background.
+5. Initialize Firebase in your app
+   - Import the FirebaseCore module in your UIApplicationDelegate, as well as any other Firebase modules your app delegate uses.
+   - Configure a FirebaseApp shared instance in your app delegate's application
 
 ## Troubleshooting 
 ### Clean and Rebuild the Project (MAC)
